@@ -1,18 +1,34 @@
 public class Tank implements ITank {
     double amount;
 
+    double MaxAmount;
+
     public Tank(double initalAmountInGallons){
         this.amount = initalAmountInGallons;
+        MaxAmount = 1000;
     }
+
     public double RetrieveGasFromTank(double amount) {
-        this.amount -= amount;
-        return amount;
+        if(this.amount - amount >= 0)
+        {
+            this.amount -= amount;
+            return amount;
+        }
+        else{
+            amount = this.amount;
+            this.amount = 0;
+            return amount;
+        }
     }
 
     @Override
     public boolean GiveGasToTank(double amount) {
-        this.amount += amount;
-        return true;
+        if(this.amount + amount <= this.MaxAmount){
+            this.amount += amount;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override
