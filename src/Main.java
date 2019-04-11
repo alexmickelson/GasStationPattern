@@ -1,6 +1,7 @@
-public class Main {
+public class Main extends Thread {
 
     public static void main(String[] args) {
-	// write your code here
+        MockDriver mock = new MockDriver();
+        mock.doStuff();
     }
 }

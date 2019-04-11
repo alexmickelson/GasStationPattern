@@ -8,10 +8,11 @@ enum CurrencyEnum{
 }
 
 public interface ICustomer {
-    double DesiredAmountOfGas();
+    double DesiredAmountOfGas(double amount);
+    double GetAmountOfgasDesired();
     Double MaxAvailableMoney();
-    GradeEnum DediredGrade();
+    GradeEnum DesiredGrade();
     CurrencyEnum GetMoneyType();
-    boolean RecieveReceipt (IReceipt receipt);
+    boolean ReceiveReceipt (IReceipt receipt);
     IReceipt GetReceipt();
 }
