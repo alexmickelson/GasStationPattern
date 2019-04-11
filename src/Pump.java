@@ -13,7 +13,7 @@ public class Pump implements IPump {
     }
 
     @Override
-    public double Retrieve89Grade(double amount) {
+    public double Retrieve87Grade(double amount) {
         //TODO: CHANGE IN THE FUTURE
         double temp=0;
 
@@ -37,7 +37,7 @@ public class Pump implements IPump {
     }
 
     @Override
-    public double Retrieve87Grade(double amount) {
+    public double Retrieve89Grade(double amount) {
         return tank89.RetrieveGasFromTank(amount);
     }
 
@@ -51,12 +51,15 @@ public class Pump implements IPump {
         switch (costumer.DesiredGrade()){
             case GRADE_85:{
                 receipt.GasGiven = Retrieve85Grade(costumer.GetAmountOfgasDesired());
+                break;
             }
             case GRADE_87:{
                 receipt.GasGiven = Retrieve87Grade(costumer.GetAmountOfgasDesired());
+                break;
             }
             case GRADE_89:{
-                receipt.GasGiven = Retrieve85Grade(costumer.GetAmountOfgasDesired());
+                receipt.GasGiven = Retrieve89Grade(costumer.GetAmountOfgasDesired());
+                break;
             }
         }
 

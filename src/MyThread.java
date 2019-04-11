@@ -1,8 +1,8 @@
 public class MyThread extends Thread {
-    MockDriver mock = new MockDriver();
+    MockDriver mock;
 
-    public MyThread (String s) {
-        super(s);
+    public MyThread (MockDriver mock) {
+        this.mock = mock;
     }
 
     public void run() {

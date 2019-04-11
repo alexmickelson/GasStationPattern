@@ -15,7 +15,7 @@ public class Receipt implements IReceipt {
     CurrencyEnum PaymentType;
 
     public double MoneyConverter(double gasAmount){
-        return gasAmount/3.21;
+        return gasAmount*2.76;
     }
 
     public void printReceipt(){
