@@ -1,4 +1,7 @@
+import java.util.Random;
+
 public class MockDriver {
+
     public MockDriver() {
 
     }
@@ -10,7 +13,7 @@ public class MockDriver {
 
         //Set how much costumer wants
         //Gallons
-        c.DesiredAmountOfGas(25);
+        c.DesiredAmountOfGas(Math.round(Math.random()*100));
 
         p.PumpTransaction(c);
         c.ReceiveReceipt(p.getReceipt());
