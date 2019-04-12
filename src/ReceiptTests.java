@@ -14,25 +14,10 @@ public class ReceiptTests {
     @Test
     public void ReceiveReceiptTest() {
 
-        // set up
-        //ICustomer cust = context.mock(ICustomer.class);
+        double gasAmt = 30;
 
-        // expectations
-        //We need
-        //1 amount charged
-        //2 gasgiven
-        //3 payment type
-        /*context.checking(new Expectations() {{
-
-            oneOf (custReceipt).RetrieveGasFromTank(35); will(returnValue(35.0));
-        }});*/
-
-
-        IReceipt receipt = new Receipt(30,CurrencyEnum.CASH);
+        IReceipt receipt = new Receipt(gasAmt,CurrencyEnum.CASH);
         double amount = Math.round(((Receipt) receipt).AmountCharged*100.0)/100.0;
-        //cust.ReceiveReceipt(receipt);
-
-
 
         assertEquals((30*2.76*100.0)/100.0, amount);
     }
