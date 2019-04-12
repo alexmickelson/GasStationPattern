@@ -1,3 +1,4 @@
+
 public class Receipt implements IReceipt {
 
     public Receipt(){
@@ -27,4 +28,5 @@ public class Receipt implements IReceipt {
     public Receipt returnReceipt() {
         return this;
     }
+
 }

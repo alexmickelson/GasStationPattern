@@ -2,20 +2,28 @@ public class Customer implements ICustomer {
     Receipt personalReceipt;
 
     //TODO: Ask about this one!!
-    double amount;
+    double gasAmt;
+    double moneyAmt;
 
-    public double DesiredAmountOfGas(double amount) {
-        this.amount = amount;
-        return this.amount;
-    }
-
-    public double GetAmountOfgasDesired(){
-        return amount;
+    public boolean SetDesiredAmountOfGas(double amount) {
+        this.gasAmt = amount;
+        return true;
     }
 
     @Override
-    public Double MaxAvailableMoney() {
-        return null;
+    public double GetAmountOfGasDesired() {
+        return gasAmt;
+    }
+
+    @Override
+    public Double GetMaxAvailableMoney() {
+        return moneyAmt;
+    }
+
+    @Override
+    public boolean SetMaxAvailableMoney(double amt) {
+        moneyAmt = amt;
+        return true;
     }
 
     @Override
