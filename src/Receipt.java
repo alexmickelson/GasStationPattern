@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-public class Receipt {
-=======
+
 public class Receipt implements IReceipt {
 
     public Receipt(){
@@ -30,5 +28,5 @@ public class Receipt implements IReceipt {
     public Receipt returnReceipt() {
         return this;
     }
->>>>>>> DiegoMemeMaster
+
 }
