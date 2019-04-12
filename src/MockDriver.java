@@ -20,7 +20,6 @@ public class MockDriver{
         //Gallons
         c.SetDesiredAmountOfGas(1+Math.round(Math.random()*100)%17);
         c.SetMaxAvailableMoney(50);
-
         c.ReceiveReceipt(p.PumpTransaction(c));
 
         System.out.println("\n[Remaining Gas in Tank 85]: " + tank85.getLevel());

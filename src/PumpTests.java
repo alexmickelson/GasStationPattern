@@ -20,16 +20,16 @@ public class PumpTests {
 
         // expectations
         context.checking(new Expectations() {{
-
-            oneOf (tank85).RetrieveGasFromTank(35); will(returnValue(35.0));
+            oneOf(tank85).RetrieveGasFromTank(35);
+            will(returnValue(35.0));
         }});
 
         IPump pump = new Pump(tank85, tank87);
-        pump.Retrieve85Grade(35);
+        var retrieve= pump.Retrieve85Grade(35);
 
 
 
-        //assertEquals(35, retrieve);
+        assertEquals(35.0, retrieve);
     }
 
 }

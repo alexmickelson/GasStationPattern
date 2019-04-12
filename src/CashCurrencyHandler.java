@@ -1,3 +1,5 @@
+import java.security.InvalidParameterException;
+
 public class CashCurrencyHandler implements IPumpCurrencyHandler {
     private final double price85;
     private final double price87;
@@ -6,6 +8,9 @@ public class CashCurrencyHandler implements IPumpCurrencyHandler {
     double finalGasAmt;
 
     public CashCurrencyHandler(ICustomer customer, double price85, double price87, double price89){
+        if(customer.GetMoneyType() != CurrencyEnum.CASH){
+            throw new InvalidParameterException("Customer Money Type Was Not Cash");
+        }
         this.customer = customer;
         this.price85 = price85;
         this.price87 = price87;
@@ -56,6 +61,6 @@ public class CashCurrencyHandler implements IPumpCurrencyHandler {
 
     @Override
     public CurrencyEnum paymentType() {
-        return customer.GetMoneyType();
+        return CurrencyEnum.CASH;
     }
 }
