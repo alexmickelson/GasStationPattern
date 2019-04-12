@@ -1,3 +1,3 @@
 public interface IReceipt {
-    public Receipt returnReceipt();
+    Receipt returnReceipt();
 }

@@ -3,6 +3,6 @@ public interface IPump {
     double Retrieve87Grade(double amount);
     double Retrieve85Grade(double amount);
 
-    boolean PumpTransaction(ICustomer costumer);
+    IReceipt PumpTransaction(ICustomer costumer);
     boolean IsBusy();
 }

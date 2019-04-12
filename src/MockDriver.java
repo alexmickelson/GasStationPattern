@@ -2,9 +2,9 @@ import java.util.Random;
 
 public class MockDriver{
 
-    Tank tank89;
-    Tank tank85;
-    Pump p;
+    ITank tank89;
+    ITank tank85;
+    IPump p;
 
 
     public MockDriver(double tank85amount, double tank89amount) {
@@ -14,14 +14,14 @@ public class MockDriver{
     }
     public void doStuff(){
 
-        Customer c = new Customer();
+        ICustomer c = new Customer();
 
         //Set how much costumer wants
         //Gallons
-        c.DesiredAmountOfGas(1+Math.round(Math.random()*100)%17);
+        c.SetDesiredAmountOfGas(1+Math.round(Math.random()*100)%17);
+        c.SetMaxAvailableMoney(50);
 
-        p.PumpTransaction(c);
-        c.ReceiveReceipt(p.getReceipt());
+        c.ReceiveReceipt(p.PumpTransaction(c));
 
         System.out.println("\n[Remaining Gas in Tank 85]: " + tank85.getLevel());
         System.out.println("[Remaining Gas in Tank 89]: " + tank89.getLevel());
