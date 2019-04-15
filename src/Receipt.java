@@ -29,4 +29,16 @@ public class Receipt implements IReceipt {
         return this;
     }
 
+    public double GetAmountCharged(){
+        return AmountCharged;
+    }
+
+    public double GetGasGiven(){
+        return GasGiven;
+    }
+
+    public CurrencyEnum GetPaymentType(){
+        return PaymentType;
+    }
+
 }

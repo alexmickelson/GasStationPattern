@@ -2,34 +2,99 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.Expectations;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.swing.*;
+
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.instanceOf;
 
 @RunWith(JMock.class)
 public class PumpTests {
-    Mockery context = new JUnit4Mockery();
+    static Mockery context = new JUnit4Mockery();
+    static ITank tank;
+    static Pump pump;
+    static ICustomer customer;
+
+    @BeforeClass
+    public static void setup(){
+
+        tank = context.mock(ITank.class);
+        customer = context.mock(ICustomer.class);
+        pump = new Pump(tank, tank);
+    }
 
     @Test
     public void retrieve85FromPump() {
 
-        // set up
-        ITank tank85 = context.mock(ITank.class);
-        ITank tank87 = tank85;
-
         // expectations
         context.checking(new Expectations() {{
-            oneOf(tank85).RetrieveGasFromTank(35);
+            allowing(tank).RetrieveGasFromTank(35);
             will(returnValue(35.0));
         }});
 
-        IPump pump = new Pump(tank85, tank87);
         var retrieve= pump.Retrieve85Grade(35);
 
 
 
         assertEquals(35.0, retrieve);
+    }
+
+
+    @Test
+    public void Retrieve87_retrievesHalfFromEachTak(){
+        var amt = 70.0;
+        // expectations
+        context.checking(new Expectations() {{
+            allowing(tank).RetrieveGasFromTank(35);
+            will(returnValue(amt/2));
+        }});
+
+
+        assertEquals(amt, pump.Retrieve87Grade(amt));
+    }
+
+    @Test
+    public void Retrieve89_retrieves89(){
+        var amt = 70.0;
+        // expectations
+        context.checking(new Expectations() {{
+            allowing(tank).RetrieveGasFromTank(amt);
+            will(returnValue(amt));
+        }});
+
+
+        assertEquals(amt, pump.Retrieve89Grade(amt));
+    }
+
+    @Test
+    public void pumpTransaction_Customer_Grade85_Cash(){
+        var gasAmt = 30.0;
+        var price = 2.95;
+
+        pump.price85 = price;
+        //set up customer
+        context.checking(new Expectations() {{
+            allowing(tank).RetrieveGasFromTank(gasAmt);
+                will(returnValue(gasAmt));
+            allowing(customer).DesiredGrade();
+                will(returnValue(GradeEnum.GRADE_85));
+            allowing(customer).GetAmountOfGasDesired();
+                will(returnValue(gasAmt));
+            allowing(customer).GetMoneyType();
+                will(returnValue(CurrencyEnum.CASH));
+            allowing(customer).GetMaxAvailableMoney();
+                will(returnValue(500.0));
+        }});
+
+        var reciept = pump.PumpTransaction(customer);
+
+        assertEquals(gasAmt*price , reciept.GetAmountCharged());
+        assertEquals(gasAmt ,reciept.GetGasGiven());
+        assertEquals(CurrencyEnum.CASH ,reciept.GetPaymentType());
     }
 
 }

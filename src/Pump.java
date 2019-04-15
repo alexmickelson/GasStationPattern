@@ -19,11 +19,6 @@ public class Pump implements IPump {
     }
 
 
-    //In case Receipt is an external entity.
-    public IReceipt CreateReceipt(double amount, CurrencyEnum moneyType){
-        return new Receipt(amount, moneyType);
-    }
-
 
     @Override
     public double Retrieve87Grade(double amount) {
