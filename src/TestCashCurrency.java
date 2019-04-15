@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import java.security.InvalidParameterException;
 
 
-public class CashCurrencyTest {
+public class TestCashCurrency {
     Mockery context = new JUnit4Mockery();
 
 

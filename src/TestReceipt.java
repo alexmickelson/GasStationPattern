@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(JMock.class)
-public class ReceiptTests {
+public class TestReceipt {
     Mockery context = new JUnit4Mockery();
 
     @Test

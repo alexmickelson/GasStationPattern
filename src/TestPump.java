@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.instanceOf;
 
 @RunWith(JMock.class)
-public class PumpTests {
+public class TestPump {
     static Mockery context = new JUnit4Mockery();
     static ITank tank;
     static Pump pump;
