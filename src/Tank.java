@@ -2,13 +2,21 @@ public class Tank implements ITank {
     double amount;
 
     double MaxAmount;
+    ITruckService truckService;
 
     public Tank(double initalAmountInGallons){
         this.amount = initalAmountInGallons;
+        truckService = new TruckService();
         MaxAmount = 1000;
     }
 
     public double RetrieveGasFromTank(double amount) {
+
+        if (this.amount < 2000)
+        {
+            //Call for the trucks
+            truckService.SendTruck(6000);
+        }
         if(this.amount - amount >= 0)
         {
             this.amount -= amount;
