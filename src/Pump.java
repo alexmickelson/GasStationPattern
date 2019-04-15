@@ -86,7 +86,7 @@ public class Pump implements IPump {
     }
 
 
-    private IPumpCurrencyHandler CurrencyHandlerFactory(ICustomer customer){
+    public IPumpCurrencyHandler CurrencyHandlerFactory(ICustomer customer){
         return new CashCurrencyHandler(customer, price85,price87,price89);
     }
 }

@@ -70,6 +70,7 @@ public class PumpTests {
         assertEquals(amt, pump.Retrieve89Grade(amt));
     }
 
+
     @Test
     public void pumpTransaction_Customer_Grade85_Cash(){
         var gasAmt = 30.0;
@@ -95,6 +96,30 @@ public class PumpTests {
         assertEquals(gasAmt*price , reciept.GetAmountCharged());
         assertEquals(gasAmt ,reciept.GetGasGiven());
         assertEquals(CurrencyEnum.CASH ,reciept.GetPaymentType());
+    }
+
+    @Test
+    public void CurrencyHandlerFactory_MakesACurrencyHandler_Cash_grade87(){
+        var gasAmt = 25.0;
+        var price=3.6;
+
+        pump.price87=price;
+
+
+        context.checking(new Expectations() {{
+            allowing(tank).RetrieveGasFromTank(gasAmt);
+            will(returnValue(gasAmt));
+            allowing(customer).DesiredGrade();
+            will(returnValue(GradeEnum.GRADE_87));
+            allowing(customer).GetAmountOfGasDesired();
+            will(returnValue(gasAmt));
+            allowing(customer).GetMoneyType();
+            will(returnValue(CurrencyEnum.CASH));
+        }});
+
+        var currencyHandler = pump.CurrencyHandlerFactory(customer);
+
+        assertThat(currencyHandler, instanceOf(CashCurrencyHandler.class));
     }
 
 }
