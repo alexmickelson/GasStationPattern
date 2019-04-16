@@ -1,4 +1,4 @@
-public class Pump implements IPump {
+public class Pump implements IPump, ITimeObserver {
     //Constructor
     ITank tank89;
     ITank tank85;
@@ -88,5 +88,10 @@ public class Pump implements IPump {
 
     public IPumpCurrencyHandler CurrencyHandlerFactory(ICustomer customer){
         return new CashCurrencyHandler(customer, price85,price87,price89);
+    }
+
+    @Override
+    public void update(int ticks) {
+
     }
 }

@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
-public class ITimeObserver {
+public interface ITimeObserver {
+    void update(int ticks);
 }
