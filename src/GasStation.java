@@ -22,7 +22,7 @@ public class GasStation implements ITimeObserver {
         this.tank89 = tank89;
         this.truckService = truckService;
         for(int i = 0; i < pumps.length; i++){
-            pumps[i] = new Pump(tank85,tank89);
+            pumps[i] = new Pump(tank85,tank89,clock);
         }
     }
 
