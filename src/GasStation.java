@@ -27,13 +27,15 @@ public class GasStation implements ITimeObserver {
     }
 
     public void AddCustomer(ICustomer customer){
-        //synchronized (GasStation.class){
+        synchronized (customerQueue){
             var res = customerQueue.add(customer);
-        //}
+        }
     }
 
     public int GetQueueLenght(){
-        return customerQueue.size();
+        synchronized (customerQueue){
+            return customerQueue.size();
+        }
     }
 
 
@@ -51,11 +53,14 @@ public class GasStation implements ITimeObserver {
              //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
         //here we are checking to see if there are any customers in the queue and any cost
-        if(customerQueue.size() > 0){
+        if(GetQueueLenght() > 0){
             for(int i = 0; i < pumps.length; i++)
             {
-                if(!pumps[i].IsBusy() && (customerQueue.size() > 0)){
-                    var c = customerQueue.remove();
+                if(!pumps[i].IsBusy() && (GetQueueLenght() > 0)){
+                    ICustomer c;
+                    synchronized (customerQueue){
+                        c = customerQueue.remove();
+                    }
                     pumps[i].SetCustomer(c);
                     Thread t = new Thread(pumps[i]);
                     t.start();

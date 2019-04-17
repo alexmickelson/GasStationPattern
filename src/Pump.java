@@ -14,7 +14,7 @@ public class Pump implements IPump, Runnable {
     double currentPumpedAmount = 0;
     double gasIncrementPerSecond = .3; //.3 gallons
     int sleepAmt = 500;
-    GradeEnum gradeChosen = null;
+    GradeEnum gradeChosen = GradeEnum.GRADE_85;
 
     ICustomer currentCustomer;
 
@@ -30,7 +30,7 @@ public class Pump implements IPump, Runnable {
         this.pumpNumber = pumpNumber;
 
 
-        log("pump ready to go");
+        log("pump " + pumpNumber + " ready to go");
     }
 
     public boolean SetCustomer(ICustomer customer){
@@ -64,7 +64,7 @@ public class Pump implements IPump, Runnable {
         //move reciept to here
         allowedAmount = 0;
         currentPumpedAmount = 0;
-        gradeChosen = null; //not sure if this is the right way to handle it but we want it to not be any of the values on init
+        //not sure if this is the right way to handle it but we want it to not be any of the values on init
 
         IPumpCurrencyHandler currencyHandler = CurrencyHandlerFactory(customer);
 
@@ -90,6 +90,7 @@ public class Pump implements IPump, Runnable {
             }
         }
 
+
         isPumping = true;
         log("pumping started");
         
@@ -97,7 +98,6 @@ public class Pump implements IPump, Runnable {
         {
             try {
                 Thread.sleep(sleepAmt);
-                update(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -137,7 +137,6 @@ public class Pump implements IPump, Runnable {
             {
                 //Get as much gas as the tank gives us from our request
                 gasReceived = RequestGas(gasIncrementPerSecond);
-                log("received " + gasReceived + "gallons of gas from tank");
                 //we received some gas so update amount
                 if (gasReceived > 0)
                 {
@@ -155,7 +154,7 @@ public class Pump implements IPump, Runnable {
                     currentPumpedAmount += gasReceived;
                     isPumping = false;
                 }
-                log("Current Total: " + currentPumpedAmount + "gallons");
+                log("Current Total: " + currentPumpedAmount + "gallons. Pumped: " + gasReceived + "gallons of gas. Tick: " + ticks);
             }
             else if (currentPumpedAmount < allowedAmount) //We hit here if we are just topping off from our money amount requested
             {

@@ -9,12 +9,17 @@ public class DriverStation {
         ITruckService truckService = new TruckService(clock);
         var station = new GasStation(truckService,tank85,tank89,clock);
 
-        //for(int i = 0 ;i<10;i++) {
+        for(int i = 0 ;i<100;i++) {
             var c = new Customer();
             c.SetDesiredAmountOfGas(30);
             c.SetMaxAvailableMoney(100);
             station.AddCustomer(c);
-        //}
-        //
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
