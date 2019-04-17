@@ -64,6 +64,7 @@ public class GasStation implements ITimeObserver {
                     pumps[i].SetCustomer(c);
                     Thread t = new Thread(pumps[i]);
                     t.start();
+                    log("Added Customer at Pump " +  i);
 
                 }
 

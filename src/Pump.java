@@ -116,10 +116,10 @@ public class Pump implements IPump, Runnable {
     }
 
     @Override
+
     public boolean IsBusy() {
         return false;
     }
-
 
     public IPumpCurrencyHandler CurrencyHandlerFactory(ICustomer customer){
         return new CashCurrencyHandler(customer, price85,price87,price89);
