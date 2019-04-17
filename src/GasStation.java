@@ -17,7 +17,7 @@ public class GasStation implements ITimeObserver {
         clock.subscribe(this);
         minLevel = 250;
         pumps = new Pump[6];
-        this.pumps = pumps;
+
         this.tank85 = tank85;
         this.tank89 = tank89;
         this.truckService = truckService;
@@ -27,7 +27,9 @@ public class GasStation implements ITimeObserver {
     }
 
     public void AddCustomer(ICustomer customer){
-        customerQueue.add(customer);
+        //synchronized (GasStation.class){
+            var res = customerQueue.add(customer);
+        //}
     }
 
     public int GetQueueLenght(){
@@ -53,7 +55,11 @@ public class GasStation implements ITimeObserver {
             for(int i = 0; i < pumps.length; i++)
             {
                 if(!pumps[i].IsBusy() && (customerQueue.size() > 0)){
-                    pumps[i].PumpTransaction(customerQueue.remove());
+                    var c = customerQueue.remove();
+                    pumps[i].SetCustomer(c);
+                    Thread t = new Thread(pumps[i]);
+                    t.start();
+
                 }
 
             }

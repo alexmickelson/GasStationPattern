@@ -1,3 +1,3 @@
-public interface ITimeObserver {
+public interface ITimeObserver{
     void update(int ticks);
 }
