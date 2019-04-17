@@ -14,8 +14,7 @@ public class DriverPump extends Thread {
         tank85 = tank85amount;
         tank89 = tank89amount;
         this.time = time;
-        p = new Pump(tank85, tank89);
-        time.subscribe(p);
+        p = new Pump(tank85, tank89, time);
         c= customer;
     }
 

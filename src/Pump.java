@@ -16,15 +16,15 @@ public class Pump implements IPump {
     GradeEnum gradeChosen = null;
 
 
-    Receipt receipt;
 
 
 
 
-    public Pump(ITank tank85, ITank tank89){
+    public Pump(ITank tank85, ITank tank89, ITimeObservable clock){
         this.tank85 = tank85;
         this.tank89 = tank89;
-        this.receipt = new Receipt();
+        clock.subscribe(this);
+
 
         log("pump started");
     }

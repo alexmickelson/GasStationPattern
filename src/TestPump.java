@@ -22,7 +22,8 @@ public class TestPump {
 
         tank = context.mock(ITank.class);
         customer = context.mock(ICustomer.class);
-        pump = new Pump(tank, tank);
+        var clock = TimeService.getInstance();
+        pump = new Pump(tank, tank, clock);
     }
 
     @Test
