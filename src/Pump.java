@@ -78,6 +78,8 @@ public class Pump implements IPump, ITimeObserver {
             }
         }
 
+        isPumping = true;
+        
         while(isPumping)
         {
             try {
