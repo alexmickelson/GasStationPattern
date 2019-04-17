@@ -79,7 +79,7 @@ public class Pump implements IPump {
         }
 
         isPumping = true;
-        
+
         while(isPumping)
         {
             try {

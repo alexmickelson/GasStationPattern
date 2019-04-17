@@ -1,4 +1,3 @@
-public interface ITruckService {
-    boolean SendTruck(double AmtRequested);
-    double GetTruckGas();
+public interface ITruckService extends ITimeObserver {
+    void CallTruck(ITank tank, double amt);
 }
