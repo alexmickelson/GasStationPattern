@@ -25,6 +25,8 @@ public class Pump implements IPump {
         this.tank85 = tank85;
         this.tank89 = tank89;
         this.receipt = new Receipt();
+
+        log("pump started");
     }
 
 
@@ -50,6 +52,7 @@ public class Pump implements IPump {
 
     @Override
     public IReceipt PumpTransaction(ICustomer customer) {
+        log("pump transaction started");
         //move reciept to here
         allowedAmount = 0;
         currentPumpedAmount = 0;
@@ -79,6 +82,7 @@ public class Pump implements IPump {
         }
 
         isPumping = true;
+        log("pumping started");
         
         while(isPumping)
         {
@@ -89,16 +93,13 @@ public class Pump implements IPump {
             }
         }
 
+        log("pumping done");
+
         currencyHandler.gasGiven(gasGiven);
         Receipt receipt = new Receipt();
         receipt.GasGiven = gasGiven;
         receipt.AmountCharged = currencyHandler.amountCharged();
         receipt.PaymentType = currencyHandler.paymentType();
-
-
-
-        //money after
-
 
 
         return receipt;
@@ -126,7 +127,7 @@ public class Pump implements IPump {
             {
                 //Get as much gas as the tank gives us from our request
                 gasReceived = RequestGas(gasIncrementPerSecond);
-
+                log("recieved " + gasReceived + "gallons of gas from tank");
                 //we recieved some gas so update amount
                 if (gasReceived > 0)
                 {
@@ -144,6 +145,7 @@ public class Pump implements IPump {
                     currentPumpedAmount += gasReceived;
                     isPumping = false;
                 }
+                log("currently pumped " + currentPumpedAmount + "gallons");
             }
             else if (currentPumpedAmount < allowedAmount) //We hit here if we are just topping off from our money amount requested
             {
@@ -174,5 +176,9 @@ public class Pump implements IPump {
         }
         //we didn't hit anything so we just return 0, we got no gas
         return 0;
+    }
+
+    private void log(String s){
+        System.out.println("Pump:   " + s);
     }
 }
