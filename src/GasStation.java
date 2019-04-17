@@ -22,7 +22,7 @@ public class GasStation implements ITimeObserver {
         this.tank89 = tank89;
         this.truckService = truckService;
         for(int i = 0; i < pumps.length; i++){
-            pumps[i] = new Pump(tank85,tank89,clock);
+            pumps[i] = new Pump(tank85,tank89,clock, i);
         }
     }
 
@@ -38,19 +38,19 @@ public class GasStation implements ITimeObserver {
 
 
      public void update(int ticks){
-        //check to see if we need to schedual a truck for tank 89
+        //check to see if we need to schedule a truck for tank 89
         if(tank89.getLevel() <= minLevel)
         {
             truckService.CallTruck(tank89,(tank89.getLevel() - 1000));
             //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
-        //check to see if we need to schedual a truck for tank 85
+        //check to see if we need to schedule a truck for tank 85
         if(tank89.getLevel() <= minLevel)
         {
              truckService.CallTruck(tank85,(tank85.getLevel() - 1000));
              //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
-        //here we are checking to see if there are any cusotomers in the queue and any cost
+        //here we are checking to see if there are any customers in the queue and any cost
         if(customerQueue.size() > 0){
             for(int i = 0; i < pumps.length; i++)
             {
