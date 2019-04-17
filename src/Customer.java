@@ -28,7 +28,22 @@ public class Customer implements ICustomer {
 
     @Override
     public GradeEnum DesiredGrade() {
-        //switch (1+Math.round(Math.random()*100)%2)
+        //TODO: Check if it works before removing comments
+//        switch ((int) (Math.round(Math.random()*100)%3)){
+//            case 0:
+//            {
+//                return GradeEnum.GRADE_85;
+//            }
+//            case 1:
+//            {
+//                return GradeEnum.GRADE_87;
+//            }
+//            case 2:
+//            {
+//                return GradeEnum.GRADE_89;
+//            }
+//        }
+
         return GradeEnum.GRADE_85;
     }
 
