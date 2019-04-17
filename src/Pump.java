@@ -1,6 +1,6 @@
 import java.util.concurrent.TimeUnit;
 
-public class Pump implements IPump {
+public class Pump implements IPump, Runnable {
     //Constructor
     ITank tank89;
     ITank tank85;
@@ -15,6 +15,8 @@ public class Pump implements IPump {
     double gasIncrementPerSecond = .3; //.3 gallons
     int sleepAmt = 500;
     GradeEnum gradeChosen = null;
+
+    ICustomer currentCustomer;
 
 
 
@@ -31,6 +33,10 @@ public class Pump implements IPump {
         log("pump ready to go");
     }
 
+    public boolean SetCustomer(ICustomer customer){
+        currentCustomer = customer;
+        return true;
+    }
 
 
     @Override
@@ -91,6 +97,7 @@ public class Pump implements IPump {
         {
             try {
                 Thread.sleep(sleepAmt);
+                update(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -189,5 +196,11 @@ public class Pump implements IPump {
 
     private void log(String s){
         System.out.println("Pump " + pumpNumber + ":   " + s);
+    }
+
+
+    @Override
+    public void run() {
+        PumpTransaction(currentCustomer);
     }
 }
