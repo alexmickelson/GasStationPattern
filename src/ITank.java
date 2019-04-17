@@ -4,6 +4,7 @@ public interface ITank {
 
     boolean GiveGasToTank(double amount);
     double getLevel();
+    double getMaxAmount();
 
 
 }

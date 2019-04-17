@@ -41,4 +41,8 @@ public class Tank implements ITank {
     public double getLevel() {
         return amount;
     }
+
+    public double getMaxAmount(){
+        return MaxAmount;
+    }
 }

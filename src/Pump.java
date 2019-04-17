@@ -15,8 +15,31 @@ public class Pump implements IPump {
     int sleepAmt = 500;
     GradeEnum gradeChosen = null;
 
+    //Stats
+    double total85Pumped;
+    double total87Pumped;
+    double total89Pumped;
 
 
+    public GradeEnum GetGradeChosen(){
+        return gradeChosen;
+    }
+
+    public double GetCurrentPumpedAmount(){
+        return currentPumpedAmount;
+    }
+
+    public double Get85GasAmountPumped(){
+        return total85Pumped;
+    }
+
+     public double Get87GasAmountPumped(){
+         return total87Pumped;
+    }
+
+     public double Get89GasAmountPumped(){
+         return total89Pumped;
+    }
 
 
 
@@ -165,12 +188,15 @@ public class Pump implements IPump {
     {
         switch (gradeChosen){
             case GRADE_85:{
+                total85Pumped += amt;
                 return Retrieve85Grade(amt);
             }
             case GRADE_87:{
+                total87Pumped += amt;
                 return Retrieve85Grade(amt);
             }
             case GRADE_89:{
+                total89Pumped += amt;
                 return Retrieve85Grade(amt);
             }
         }
