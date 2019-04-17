@@ -1,6 +1,6 @@
 import java.util.concurrent.TimeUnit;
 
-public class Pump implements IPump, ITimeObserver {
+public class Pump implements IPump {
     //Constructor
     ITank tank89;
     ITank tank85;
@@ -132,13 +132,17 @@ public class Pump implements IPump, ITimeObserver {
                 {
                     currentPumpedAmount += gasReceived;
                 }
-                else //we didn't get gas so we can't pump
+                //we didn't get gas so we can't pump
+                else
                 {
                     isPumping = false;
                 }
-                if (gasReceived < gasIncrementPerSecond) //if we hit this we also know we would have an empty tank
+                //if we hit this we also know we would have an empty tank
+                if (gasReceived < gasIncrementPerSecond)
                 {
                     //Set IsTankEmpty so our pump doesn't try to pump and displays a message or something
+                    currentPumpedAmount += gasReceived;
+                    isPumping = false;
                 }
             }
             else if (currentPumpedAmount < allowedAmount) //We hit here if we are just topping off from our money amount requested

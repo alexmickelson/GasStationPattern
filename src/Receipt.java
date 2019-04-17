@@ -25,10 +25,6 @@ public class Receipt implements IReceipt {
                             "> Payment Type: " + PaymentType.toString());
     }
 
-    public Receipt returnReceipt() {
-        return this;
-    }
-
     public double GetAmountCharged(){
         return AmountCharged;
     }

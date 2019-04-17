@@ -51,7 +51,7 @@ public class TestCashCurrency {
 
     @Test
     public void amountCharged_returnsPriceTimesGasAmt(){
-        CashCurrencyHandler currencyHandler = new CashCurrencyHandler(Customer, price85, price87, price89);
+        //CashCurrencyHandler currencyHandler = new CashCurrencyHandler(Customer, price85, price87, price89);
     }
 
 }

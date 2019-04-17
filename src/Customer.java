@@ -39,7 +39,7 @@ public class Customer implements ICustomer {
 
     @Override
     public boolean ReceiveReceipt(IReceipt receipt) {
-        receipt.returnReceipt().printReceipt();
+        receipt.printReceipt();
         return true;
     }
 
