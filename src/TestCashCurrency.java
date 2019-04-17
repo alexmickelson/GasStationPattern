@@ -25,7 +25,7 @@ public class TestCashCurrency {
     }
 
     @Before
-    public static void beforeTest(){
+    public void beforeTest(){
         price85 = 2.0;
         price87 = 2.7;
         price89=2.9;
