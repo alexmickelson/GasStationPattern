@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PumpDriver implements Runnable{
+public class DriverPump extends Thread {
 
     private ITimeObservable time;
     ITank tank89;
@@ -10,21 +10,23 @@ public class PumpDriver implements Runnable{
     ICustomer c;
 
 
-    public PumpDriver(ITank tank85amount, ITank tank89amount, ICustomer customer, ITimeObservable time) {
+    public DriverPump(ITank tank85amount, ITank tank89amount, ICustomer customer, ITimeObservable time) {
         tank85 = tank85amount;
         tank89 = tank89amount;
         this.time = time;
-        p = new Pump(tank85, tank89);
-        time.subscribe(p);
+        p = new Pump(tank85, tank89, time);
         c= customer;
     }
+
     @Override
     public void run() {
-        c.ReceiveReceipt(p.PumpTransaction(c));
-        var r = c.GetReceipt();
+        var r = p.PumpTransaction(c);
         r.printReceipt();
+
 
         System.out.println("\n[Remaining Gas in Tank 85]: " + tank85.getLevel());
         System.out.println("[Remaining Gas in Tank 89]: " + tank89.getLevel());
     }
+
+
 }
