@@ -32,7 +32,7 @@ public class GasStation implements ITimeObserver {
         }
     }
 
-    public int GetQueueLenght(){
+    public int GetQueueLength(){
         synchronized (customerQueue){
             return customerQueue.size();
         }
@@ -53,10 +53,10 @@ public class GasStation implements ITimeObserver {
              //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
         //here we are checking to see if there are any customers in the queue and any cost
-        if(GetQueueLenght() > 0){
+        if(GetQueueLength() > 0){
             for(int i = 0; i < pumps.length; i++)
             {
-                if(!pumps[i].IsBusy() && (GetQueueLenght() > 0)){
+                if(!pumps[i].IsBusy() && (GetQueueLength() > 0)){
                     ICustomer c;
                     synchronized (customerQueue){
                         c = customerQueue.remove();
