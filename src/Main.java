@@ -13,7 +13,7 @@ public class Main{
             c.SetDesiredAmountOfGas(1+Math.round(Math.random()*100)%17);
             c.SetMaxAvailableMoney(50);
 
-            DriverPump driver = new DriverPump(tank85, tank89, c, time);
+            DriverPump driver = new DriverPump(tank85, tank89, c, time, x);
             driver.start();
 
         }

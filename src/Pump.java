@@ -5,6 +5,7 @@ public class Pump implements IPump {
     ITank tank89;
     ITank tank85;
 
+    int pumpNumber;
     double price85 = 2.50;
     double price87 = 2.90;
     double price89 = 3.00;
@@ -20,13 +21,14 @@ public class Pump implements IPump {
 
 
 
-    public Pump(ITank tank85, ITank tank89, ITimeObservable clock){
+    public Pump(ITank tank85, ITank tank89, ITimeObservable clock, int pumpNumber){
         this.tank85 = tank85;
         this.tank89 = tank89;
         clock.subscribe(this);
+        this.pumpNumber = pumpNumber;
 
 
-        log("pump started");
+        log("pump ready to go");
     }
 
 
@@ -52,7 +54,7 @@ public class Pump implements IPump {
 
     @Override
     public IReceipt PumpTransaction(ICustomer customer) {
-        log("pump transaction started");
+        log("Transaction started");
         //move reciept to here
         allowedAmount = 0;
         currentPumpedAmount = 0;
@@ -61,6 +63,7 @@ public class Pump implements IPump {
         IPumpCurrencyHandler currencyHandler = CurrencyHandlerFactory(customer);
 
         allowedAmount = currencyHandler.availableAmount();
+        log("Max Gallons allowed: " + allowedAmount );
         //money before
 
         double gasGiven = 0;
@@ -93,7 +96,7 @@ public class Pump implements IPump {
             }
         }
 
-        log("pumping done");
+        log("Ending Transaction-Request Receipt");
 
         currencyHandler.gasGiven(gasGiven);
         Receipt receipt = new Receipt();
@@ -127,8 +130,8 @@ public class Pump implements IPump {
             {
                 //Get as much gas as the tank gives us from our request
                 gasReceived = RequestGas(gasIncrementPerSecond);
-                log("recieved " + gasReceived + "gallons of gas from tank");
-                //we recieved some gas so update amount
+                log("received " + gasReceived + "gallons of gas from tank");
+                //we received some gas so update amount
                 if (gasReceived > 0)
                 {
                     currentPumpedAmount += gasReceived;
@@ -145,17 +148,23 @@ public class Pump implements IPump {
                     currentPumpedAmount += gasReceived;
                     isPumping = false;
                 }
-                log("currently pumped " + currentPumpedAmount + "gallons");
+                log("Current Total: " + currentPumpedAmount + "gallons");
             }
             else if (currentPumpedAmount < allowedAmount) //We hit here if we are just topping off from our money amount requested
             {
-                gasReceived = RequestGas(allowedAmount - gasIncrementPerSecond); //get gas from tank what it requests
+                gasReceived = RequestGas(allowedAmount - currentPumpedAmount); //get gas from tank what it requests
                 currentPumpedAmount += gasReceived;
                 isPumping = false; //We hit our requested amount (and possibly hit empty tank just stop pumping both ways)
+                log("Current Total: " + currentPumpedAmount + "gallons");
             }
             else
             {
                 isPumping = false;
+            }
+
+            if(isPumping == false)
+            {
+                log("Done Pumping");
             }
         }
     }
@@ -179,6 +188,6 @@ public class Pump implements IPump {
     }
 
     private void log(String s){
-        System.out.println("Pump:   " + s);
+        System.out.println("Pump " + pumpNumber + ":   " + s);
     }
 }
