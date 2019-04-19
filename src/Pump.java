@@ -2,6 +2,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Pump implements IPump, Runnable {
     //Constructor
+
+    final static int NO_CUSTOMER = 0;
+    final static int START_TRANSACTION = 1;
+    final static int PUMPING_GAS = 2;
+    final static int ENDING_TRANSACTION = 3;
+    int state = NO_CUSTOMER;
+
     ITank tank89;
     ITank tank85;
 
@@ -60,65 +67,78 @@ public class Pump implements IPump, Runnable {
 
     @Override
     public IReceipt PumpTransaction(ICustomer customer) {
-        log("Transaction started");
-        //move reciept to here
-        allowedAmount = 0;
-        currentPumpedAmount = 0;
-        //not sure if this is the right way to handle it but we want it to not be any of the values on init
+        if (state == NO_CUSTOMER) {
+            state = START_TRANSACTION;
+            log("Transaction started");
+            //move reciept to here
+            allowedAmount = 0;
+            currentPumpedAmount = 0;
+            //not sure if this is the right way to handle it but we want it to not be any of the values on init
 
-        IPumpCurrencyHandler currencyHandler = CurrencyHandlerFactory(customer);
+            IPumpCurrencyHandler currencyHandler = CurrencyHandlerFactory(customer);
 
-        allowedAmount = currencyHandler.availableAmount();
-        log("Max Gallons allowed: " + allowedAmount );
-        //money before
+            allowedAmount = currencyHandler.availableAmount();
+            log("Max Gallons allowed: " + allowedAmount);
+            //money before
 
-        double gasGiven = 0;
+            double gasGiven = 0;
 
-        //set our variable for this transaction to get the right type of grade
-        switch (customer.DesiredGrade()){
-            case GRADE_85:{
-                gradeChosen = GradeEnum.GRADE_85;
-                break;
+            //set our variable for this transaction to get the right type of grade
+            switch (customer.DesiredGrade()) {
+                case GRADE_85: {
+                    gradeChosen = GradeEnum.GRADE_85;
+                    break;
+                }
+                case GRADE_87: {
+                    gradeChosen = GradeEnum.GRADE_87;
+                    break;
+                }
+                case GRADE_89: {
+                    gradeChosen = GradeEnum.GRADE_89;
+                    break;
+                }
             }
-            case GRADE_87:{
-                gradeChosen = GradeEnum.GRADE_87;
-                break;
+
+
+            isPumping = true;
+            state = PUMPING_GAS;
+            log("pumping started");
+
+            while (isPumping) {
+                try {
+                    Thread.sleep(sleepAmt);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            case GRADE_89:{
-                gradeChosen = GradeEnum.GRADE_89;
-                break;
-            }
+
+            state = ENDING_TRANSACTION;
+            log("Ending Transaction-Request Receipt");
+
+            currencyHandler.gasGiven(gasGiven);
+            Receipt receipt = new Receipt();
+            receipt.GasGiven = gasGiven;
+            receipt.AmountCharged = currencyHandler.amountCharged();
+            receipt.PaymentType = currencyHandler.paymentType();
+
+            state = NO_CUSTOMER;
+            return receipt;
+
         }
-
-
-        isPumping = true;
-        log("pumping started");
-        
-        while(isPumping)
-        {
-            try {
-                Thread.sleep(sleepAmt);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        log("Ending Transaction-Request Receipt");
-
-        currencyHandler.gasGiven(gasGiven);
-        Receipt receipt = new Receipt();
-        receipt.GasGiven = gasGiven;
-        receipt.AmountCharged = currencyHandler.amountCharged();
-        receipt.PaymentType = currencyHandler.paymentType();
-
-
-        return receipt;
+        return null;
     }
 
     @Override
 
     public boolean IsBusy() {
-        return false;
+        if(state == NO_CUSTOMER)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     public IPumpCurrencyHandler CurrencyHandlerFactory(ICustomer customer){
