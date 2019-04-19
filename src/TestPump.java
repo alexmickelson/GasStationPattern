@@ -23,7 +23,7 @@ public class TestPump {
         tank = context.mock(ITank.class);
         customer = context.mock(ICustomer.class);
         var clock = TimeService.getInstance();
-        pump = new Pump(tank, tank, clock);
+        pump = new Pump(tank, tank, clock, 1);
     }
 
     @Test
@@ -70,6 +70,7 @@ public class TestPump {
     }
 
 
+    //The next two tests break
     @Test
     public void pumpTransaction_Customer_Grade85_Cash(){
         var gasAmt = 30.0;

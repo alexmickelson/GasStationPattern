@@ -10,11 +10,11 @@ public class DriverPump extends Thread {
     ICustomer c;
 
 
-    public DriverPump(ITank tank85amount, ITank tank89amount, ICustomer customer, ITimeObservable time) {
+    public DriverPump(ITank tank85amount, ITank tank89amount, ICustomer customer, ITimeObservable time, int pumpNumber) {
         tank85 = tank85amount;
         tank89 = tank89amount;
         this.time = time;
-        p = new Pump(tank85, tank89, time);
+        p = new Pump(tank85, tank89, time, pumpNumber);
         c= customer;
     }
 
