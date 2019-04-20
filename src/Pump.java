@@ -43,7 +43,7 @@ public class Pump implements IPump, Runnable {
     ICustomer currentCustomer;
     IPumpCurrencyHandler currencyHandler;
 
-
+    //hello world
 
     public GradeEnum GetGradeChosen(){
         return gradeChosen;
@@ -114,11 +114,6 @@ public class Pump implements IPump, Runnable {
 
             state.addCustomer(customer); //This will call for a customer if we are in NO_CUSTOMER state
 
-<<<<<<< HEAD
-            isPumping = true;
-            log("pumping started");
-=======
->>>>>>> master
 
             while (state.isPumping()) {
                 try {
@@ -126,30 +121,12 @@ public class Pump implements IPump, Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-<<<<<<< HEAD
-
-                state = ENDING_TRANSACTION;
-                log("Ending Transaction-Request Receipt");
-
-                currencyHandler.gasGiven(gasGiven);
-                Receipt receipt = new Receipt();
-                receipt.GasGiven = gasGiven;
-                receipt.AmountCharged = currencyHandler.amountCharged();
-                receipt.PaymentType = currencyHandler.paymentType();
-
-                state = NO_CUSTOMER;
-                return receipt;
-
-            }
-        }
-=======
             }
             IReceipt receipt = state.endTransaction();
             receipt.printReceipt();
             //return receipt;
 
 
->>>>>>> master
         return null;
     }
 
