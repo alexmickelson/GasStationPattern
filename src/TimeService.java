@@ -4,7 +4,7 @@ public class TimeService extends Thread implements ITimeObservable{
     private int ticks;
     private int milliSecondDelay;
     private static volatile boolean exists = false;
-    private boolean isPaused;
+    public boolean isPaused;
     private static volatile TimeService oneInstance;
 
     private Vector<ITimeObserver> subscribers;
@@ -85,6 +85,9 @@ public class TimeService extends Thread implements ITimeObservable{
 
     }
 
+    public boolean isPaused(){
+        return isPaused;
+    }
 
     public void ChangeSpeedOfProgram(int speed){
         milliSecondDelay = speed;

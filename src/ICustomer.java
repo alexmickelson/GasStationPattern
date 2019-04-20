@@ -7,4 +7,5 @@ public interface ICustomer {
     CurrencyEnum GetMoneyType();
     boolean ReceiveReceipt (IReceipt receipt);
     IReceipt GetReceipt();
+    void SetDesiredGrade(GradeEnum grade);
 }

@@ -6,5 +6,5 @@ public interface ITimeObservable {
     void start();
     void pause();
     void ChangeSpeedOfProgram(int speed);
-
+    boolean isPaused();
 }

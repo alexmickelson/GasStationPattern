@@ -136,7 +136,12 @@ public class Pump implements IPump, Runnable {
     }
 
     public IPumpCurrencyHandler CurrencyHandlerFactory(ICustomer customer){
-        return new CashCurrencyHandler(customer, price85,price87,price89);
+        if(customer.GetMoneyType() == CurrencyEnum.CASH){
+            return new CashCurrencyHandler(customer, price85,price87,price89);
+        }
+        else{
+            return new CreditCurrencyHandler(customer,price85,price87,price89);
+        }
     }
 
     @Override
