@@ -9,6 +9,9 @@ public class GasStation implements ITimeObserver {
     private ITank tank89;
     private ITank tank85;
     private double minLevel;
+    public int totalCustomersLost85Grade;
+    public int totalCustomersLost87Grade;
+    public int totalCustomersLost89Grade;
 
     private LinkedList<ICustomer> customerQueue = new LinkedList<>();
     public GasStation( ITruckService truckService,ITank tank85,ITank tank89,ITimeObservable clock){
@@ -43,13 +46,16 @@ public class GasStation implements ITimeObserver {
         //check to see if we need to schedule a truck for tank 89
         if(tank89.getLevel() <= minLevel)
         {
-            truckService.CallTruck(tank89,(tank89.getLevel() - 1000));
+
+
+            truckService.CallTruck(tank89,(tank89.getMaxAmount()-tank89.getLevel()));
             //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
         //check to see if we need to schedule a truck for tank 85
-        if(tank89.getLevel() <= minLevel)
+        if(tank85.getLevel() <= minLevel)
         {
-             truckService.CallTruck(tank85,(tank85.getLevel() - 1000));
+
+            truckService.CallTruck(tank85,(tank85.getMaxAmount()-tank85.getLevel()));
              //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
         //here we are checking to see if there are any customers in the queue and any cost
@@ -79,6 +85,11 @@ public class GasStation implements ITimeObserver {
     private void log(String s){
         System.out.println("Station:     " + s);
         return;
+    }
+
+    @Override
+    public void changespeed(int time) {
+
     }
 }
 

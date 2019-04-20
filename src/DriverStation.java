@@ -1,25 +1,42 @@
 public class DriverStation {
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
+
 
         ITimeObservable clock = TimeService.getInstance();
         clock.subscribe(new TimeReporter());
-        ITank tank89 = new Tank(1000);
-        ITank tank85 = new Tank(1000);
+        clock.ChangeSpeedOfProgram(50);
+        ITank tank89 = new Tank(275);
+        ITank tank85 = new Tank(275);
+
+
+
 
         ITruckService truckService = new TruckService(clock);
         var station = new GasStation(truckService,tank85,tank89,clock);
+        int freq = 10;
+        CustomerGenerator customerGenerator = new CustomerGenerator(station,clock,freq);
+        customerGenerator.run();
 
-        for(int i = 0 ;i<100;i++) {
-            var c = new Customer();
-            c.SetDesiredAmountOfGas(30);
-            c.SetMaxAvailableMoney(100);
-            station.AddCustomer(c);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
+
+
+
+//        int v = 0;
+//        while(v<100){
+//            v++;
+//            Thread.sleep(100);
+//        }
+//
+//        clock.pause();
+//
+//        while(v<200){
+//            v++;
+//            Thread.sleep(100);
+//        }
+
+        clock.start();
+
+
 
     }
 }

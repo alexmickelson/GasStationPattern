@@ -4,6 +4,13 @@ public interface ITank {
 
     boolean GiveGasToTank(double amount);
     double getLevel();
+    double getMaxAmount();
+    public void AddGallonsOrdered(double gallonsOrdered);
+    public double GetGallonsOrdered();
+
+
+    public double GetGallonsUsed();
+
 
 
 }
