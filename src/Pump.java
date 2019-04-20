@@ -11,7 +11,7 @@ public class Pump implements IPump, Runnable {
     IState statePumpingGas;
     IState state;
 
-
+    //mike was here
     //final static int NO_CUSTOMER = 0;
     //final static int START_TRANSACTION = 1;
     //final static int PUMPING_GAS = 2;
