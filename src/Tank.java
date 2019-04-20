@@ -7,7 +7,7 @@ public class Tank implements ITank {
 
     public Tank(double initalAmountInGallons){
         this.amount = initalAmountInGallons;
-        MaxAmount = 1000;
+        MaxAmount = initalAmountInGallons;
         GallonsOrdered = 0;
         GallonsUsed = 0;
     }

@@ -23,7 +23,7 @@ public class TruckService implements ITruckService {
         int n = rand.nextInt(200);
         //add 50-250  ms to the currnt time b
         n = n + minimumWaitTime + tickscurrent;
-        
+
         TankServiceSchedule TankServiceSchedule = new TankServiceSchedule(tank, n, amt);
         boolean tankalreadyadded = false;
         for (var tankService : tankList) {
@@ -33,6 +33,7 @@ public class TruckService implements ITruckService {
 
         }
         if(!tankalreadyadded){
+            tank.AddGallonsOrdered(amt);
             tankList.add(TankServiceSchedule);
 
             System.out.println("Truck has been called YEET");

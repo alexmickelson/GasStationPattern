@@ -44,15 +44,15 @@ public class GasStation implements ITimeObserver {
         if(tank89.getLevel() <= minLevel)
         {
 
-            tank89.AddGallonsOrdered(1000-tank89.getLevel());
-            truckService.CallTruck(tank89,(1000-tank89.getLevel()));
+
+            truckService.CallTruck(tank89,(tank89.getMaxAmount()-tank89.getLevel()));
             //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
         //check to see if we need to schedule a truck for tank 85
         if(tank89.getLevel() <= minLevel)
         {
-            tank89.AddGallonsOrdered(1000-tank89.getLevel());
-            truckService.CallTruck(tank85,(1000-tank85.getLevel()));
+
+            truckService.CallTruck(tank85,(tank85.getMaxAmount()-tank85.getLevel()));
              //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
         //here we are checking to see if there are any customers in the queue and any cost
