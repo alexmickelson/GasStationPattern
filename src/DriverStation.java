@@ -4,9 +4,9 @@ public class DriverStation {
 
         ITimeObservable clock = TimeService.getInstance();
         clock.subscribe(new TimeReporter());
-        clock.ChangeSpeedOfProgram(500);
-        ITank tank89 = new Tank(10);
-        ITank tank85 = new Tank(10);
+        clock.ChangeSpeedOfProgram(50);
+        ITank tank89 = new Tank(275);
+        ITank tank85 = new Tank(275);
 
 
 

@@ -52,7 +52,7 @@ public class GasStation implements ITimeObserver {
             //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
         //check to see if we need to schedule a truck for tank 85
-        if(tank89.getLevel() <= minLevel)
+        if(tank85.getLevel() <= minLevel)
         {
 
             truckService.CallTruck(tank85,(tank85.getMaxAmount()-tank85.getLevel()));
