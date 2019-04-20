@@ -1,9 +1,9 @@
 public interface IState {
-    void update();
-    void startTransaciton();
     boolean isBusy();
-    void isPumping();
-    void endTransaction();
+    boolean isPumping();
+    void pumpGas();
+    IReceipt endTransaction();
+    void addCustomer(ICustomer customer);
 
 }
 

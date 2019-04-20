@@ -1,12 +1,9 @@
 public class StateNoCustomer implements IState {
-    @Override
-    public void update() {
+    Pump myPump;
 
-    }
-
-    @Override
-    public void startTransaciton() {
-
+    StateNoCustomer(Pump myPump)
+    {
+        this.myPump = myPump;
     }
 
     @Override
@@ -15,12 +12,25 @@ public class StateNoCustomer implements IState {
     }
 
     @Override
-    public void isPumping() {
+    public boolean isPumping() {
+        return false;
+    }
+
+    @Override
+    public void pumpGas() {
 
     }
 
     @Override
-    public void endTransaction() {
+    public IReceipt endTransaction() {
+        return null;
+    }
 
+    @Override
+    public void addCustomer(ICustomer customer) {
+        myPump.SetCustomer(myPump.currentCustomer);
+        myPump.startTransaction();
+        myPump.log("switching to pumping state") ;
+        myPump.state = myPump.statePumpingGas;
     }
 }
