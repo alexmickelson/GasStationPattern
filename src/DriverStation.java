@@ -3,8 +3,10 @@ public class DriverStation {
 
         ITimeObservable clock = TimeService.getInstance();
         clock.subscribe(new TimeReporter());
-        ITank tank89 = new Tank(1000);
-        ITank tank85 = new Tank(1000);
+        ITank tank89 = new Tank(0);
+        ITank tank85 = new Tank(0);
+
+
 
         ITruckService truckService = new TruckService(clock);
         var station = new GasStation(truckService,tank85,tank89,clock);

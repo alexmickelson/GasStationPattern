@@ -22,7 +22,7 @@ public class Pump implements IPump, Runnable {
     double gasIncrementPerSecond = 0.3; //.3 gallons
 
     //This checks when to end the transaction
-    int rateoftime = 5000;
+    int rateoftime = 1000;
     GradeEnum gradeChosen = GradeEnum.GRADE_85;
 
 
@@ -128,35 +128,34 @@ public class Pump implements IPump, Runnable {
             }
 
 
-        isPumping = true;
-        log("pumping started");
-        
-        while(isPumping)
-        {
-            try {
-                Thread.sleep(rateoftime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            isPumping = true;
+            log("pumping started");
+
+            while (isPumping) {
+                try {
+                    Thread.sleep(rateoftime*3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                state = ENDING_TRANSACTION;
+                log("Ending Transaction-Request Receipt");
+
+                currencyHandler.gasGiven(gasGiven);
+                Receipt receipt = new Receipt();
+                receipt.GasGiven = gasGiven;
+                receipt.AmountCharged = currencyHandler.amountCharged();
+                receipt.PaymentType = currencyHandler.paymentType();
+
+                state = NO_CUSTOMER;
+                return receipt;
+
             }
-
-            state = ENDING_TRANSACTION;
-            log("Ending Transaction-Request Receipt");
-
-            currencyHandler.gasGiven(gasGiven);
-            Receipt receipt = new Receipt();
-            receipt.GasGiven = gasGiven;
-            receipt.AmountCharged = currencyHandler.amountCharged();
-            receipt.PaymentType = currencyHandler.paymentType();
-
-            state = NO_CUSTOMER;
-            return receipt;
-
         }
         return null;
     }
 
     @Override
-
     public boolean IsBusy() {
         if(state == NO_CUSTOMER)
         {
@@ -253,7 +252,7 @@ public class Pump implements IPump, Runnable {
         PumpTransaction(currentCustomer);
     }
 
-    public void updateSpeedOfTime(int time) {
+    public void changespeed(int time) {
         rateoftime = time;
     }
 }

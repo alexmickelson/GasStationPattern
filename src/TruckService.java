@@ -1,3 +1,5 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -10,7 +12,7 @@ public class TruckService implements ITruckService {
     TruckService(ITimeObservable time){
         tankList = new LinkedList<>();
         time.subscribe(this);
-        PumpRate = .3;
+        PumpRate = 2.5;
     }
 
     @Override
@@ -21,6 +23,7 @@ public class TruckService implements ITruckService {
         int n = rand.nextInt(200);
         //add 50-250  ms to the currnt time b
         n = n + minimumWaitTime + tickscurrent;
+        // n = tickscurrent;
         TankServiceSchedule TankServiceSchedule = new TankServiceSchedule(tank, n, amt);
         boolean tankalreadyadded = false;
         for (var tankService : tankList) {
@@ -31,7 +34,10 @@ public class TruckService implements ITruckService {
         }
         if(!tankalreadyadded){
             tankList.add(TankServiceSchedule);
+
+            System.out.println("Truck has been called YEET");
         }
+
     }
 
     @Override
@@ -52,10 +58,12 @@ public class TruckService implements ITruckService {
                     if((tankService.amt - PumpRate) < 0){
                         tankService.tank.GiveGasToTank(tankService.amt);
                         tankService.amt = 0;
+                        System.out.println("Tank is at: "+tankService.tank.getLevel()+" Gallons");
                     }
 
                     tankService.tank.GiveGasToTank(PumpRate);
                     tankService.amt = tankService.amt - PumpRate;
+                    System.out.println("Tank is at: "+tankService.tank.getLevel()+" Gallons");
 
                 }
             }
@@ -75,9 +83,9 @@ public class TruckService implements ITruckService {
     public LinkedList<TankServiceSchedule> GetServiceSchedule(){
         return tankList;
     }
-
+    
     @Override
-    public void updateSpeedOfTime(int time) {
+    public void changespeed(int speed) {
 
     }
 }

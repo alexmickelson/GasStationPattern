@@ -5,8 +5,9 @@ public class ObserverDriverClass implements ITimeObserver {
         System.out.println(ticks + " Ticks");
     }
 
+
     @Override
-    public void updateSpeedOfTime(int time) {
+    public void changespeed(int speed) {
 
     }
 }

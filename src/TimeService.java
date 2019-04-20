@@ -50,6 +50,13 @@ public class TimeService extends Thread implements ITimeObservable{
     }
 
     @Override
+    public void SpeedChanged(){
+        for(var sub : subscribers){
+            sub.changespeed(milliSecondDelay);
+        }
+    }
+
+    @Override
     public void run() {
         while (true){
             //swallow because run is overridden and cannot throw an exception
@@ -62,5 +69,10 @@ public class TimeService extends Thread implements ITimeObservable{
             valueUpdated();
         }
 
+    }
+
+    public void ChangeSpeedOfProgram(int speed){
+        milliSecondDelay = speed;
+        valueUpdated();
     }
 }

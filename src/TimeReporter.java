@@ -4,8 +4,9 @@ public class TimeReporter implements ITimeObserver {
         System.out.println("Current time:   " + ticks);
     }
 
+
     @Override
-    public void updateSpeedOfTime(int time) {
+    public void changespeed(int speed) {
 
     }
 }
