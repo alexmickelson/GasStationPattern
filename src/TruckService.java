@@ -32,12 +32,28 @@ public class TruckService implements ITruckService {
     @Override
     public void update(int ticks) {
         this.tickscurrent = ticks;
+        LinkedList<TankServiceSchedule> newtanklist = new LinkedList<TankServiceSchedule>();
+        for (var tankService : tankList) {
+         newtanklist.add(tankService);
+        }
+
+
+
         for (var tankService : tankList) {
             if (tankService.serviceTime >= ticks) {
-                tankService.tank.GiveGasToTank(PumpRate);
+                if(tankService.amt <= 0){
+                    if(newtanklist.contains(tankService)){
+                        newtanklist.remove(tankService);
+                    }
+                }else{
+                    tankService.tank.GiveGasToTank(PumpRate);
+                    tankService.amt = tankService.amt - PumpRate;
+                }
             }
 
         }
+
+        tankList = newtanklist;
     }
 
     public void SetMinimumWaitTime(int min){
