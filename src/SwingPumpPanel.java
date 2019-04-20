@@ -14,7 +14,7 @@ public class SwingPumpPanel extends JPanel {
     private JTextArea grade87Total;
     private JTextArea grade89Total;
 
-    private Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK);
+    private Border border = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private int textWidth = 20;
 
 
@@ -22,8 +22,10 @@ public class SwingPumpPanel extends JPanel {
         super();
         title = new JTextArea(name, 1, textWidth);
         title.setEditable(false);
+        title.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
         carDisplay = new JTextArea("no cars here", 1, textWidth);
         carDisplay.setEditable(false);
+        carDisplay.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
 
         fuelType = new JTextArea("Requested Fuel: none", 1, textWidth);
         fuelType.setEditable(false);
