@@ -13,33 +13,29 @@ public class Tank implements ITank {
     }
 
     public double RetrieveGasFromTank(double amount) {
-
-        //if (this.amount < 2000)
-        //{
-        //    //Call for the trucks
-        //    truckService.SendTruck(6000);
-        //}
-        if(this.amount - amount >= 0)
-        {
-            this.amount -= amount;
-            GallonsUsed += amount;
-            return amount;
-        }
-        else{
-            amount = this.amount;
-            this.amount = 0;
-            GallonsUsed += amount;
-            return amount;
+        synchronized (Tank.class) {
+            if (this.amount - amount >= 0) {
+                this.amount -= amount;
+                GallonsUsed += amount;
+                return amount;
+            } else {
+                amount = this.amount;
+                this.amount = 0;
+                GallonsUsed += amount;
+                return amount;
+            }
         }
     }
 
     @Override
     public boolean GiveGasToTank(double amount) {
-        if(this.amount + amount <= this.MaxAmount){
-            this.amount += amount;
-            return true;
-        }else{
-            return false;
+        synchronized (Tank.class) {
+            if (this.amount + amount <= this.MaxAmount) {
+                this.amount += amount;
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

@@ -1,12 +1,18 @@
 public class Customer implements ICustomer {
     Receipt personalReceipt;
-
+    GradeEnum grade;
+    CurrencyEnum currencyType;
     //TODO: Ask about this one!!
     double gasAmt;
     double moneyAmt;
 
+    public Customer(){
+        this.grade = GradeEnum.GRADE_85;
+    }
+
     public boolean SetDesiredAmountOfGas(double amount) {
         this.gasAmt = amount;
+
         return true;
     }
 
@@ -28,30 +34,22 @@ public class Customer implements ICustomer {
 
     @Override
     public GradeEnum DesiredGrade() {
-        //TODO: Check if it works before removing comments
-//        switch ((int) (Math.round(Math.random()*100)%3)){
-//            case 0:
-//            {
-//                return GradeEnum.GRADE_85;
-//            }
-//            case 1:
-//            {
-//                return GradeEnum.GRADE_87;
-//            }
-//            case 2:
-//            {
-//                return GradeEnum.GRADE_89;
-//            }
-//        }
+        return grade;
+    }
 
-        return GradeEnum.GRADE_85;
+    @Override
+    public void SetDesiredGrade(GradeEnum grade) {
+        this.grade = grade;
     }
 
     @Override
     public CurrencyEnum GetMoneyType() {
-        return CurrencyEnum.CASH;
+        return currencyType;
     }
 
+    public void SetMoneyType(CurrencyEnum currency) {
+        this.currencyType = currency;
+    }
     @Override
     public boolean ReceiveReceipt(IReceipt receipt) {
         receipt.printReceipt();
