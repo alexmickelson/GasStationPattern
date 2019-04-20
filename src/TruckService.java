@@ -29,5 +29,10 @@ public class TruckService implements ITruckService {
 
         }
     }
+
+    @Override
+    public void updateSpeedOfTime(int time) {
+
+    }
 }
 

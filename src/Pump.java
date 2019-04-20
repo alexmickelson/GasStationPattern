@@ -12,8 +12,10 @@ public class Pump implements IPump, Runnable {
     boolean isPumping = false;
     double allowedAmount = 0;
     double currentPumpedAmount = 0;
-    double gasIncrementPerSecond = .3; //.3 gallons
-    int sleepAmt = 500;
+    double gasIncrementPerSecond = 0.3; //.3 gallons
+
+    //This checks when to end the transaction
+    int rateoftime = 5000;
     GradeEnum gradeChosen = GradeEnum.GRADE_85;
 
 
@@ -123,7 +125,7 @@ public class Pump implements IPump, Runnable {
         while(isPumping)
         {
             try {
-                Thread.sleep(sleepAmt);
+                Thread.sleep(rateoftime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -230,5 +232,9 @@ public class Pump implements IPump, Runnable {
     @Override
     public void run() {
         PumpTransaction(currentCustomer);
+    }
+
+    public void updateSpeedOfTime(int time) {
+        rateoftime = time;
     }
 }

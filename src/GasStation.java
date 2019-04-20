@@ -80,5 +80,10 @@ public class GasStation implements ITimeObserver {
         System.out.println("Station:     " + s);
         return;
     }
+
+    @Override
+    public void updateSpeedOfTime(int time) {
+
+    }
 }
 

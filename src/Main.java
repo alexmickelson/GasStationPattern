@@ -6,7 +6,7 @@ public class Main{
         ITank tank89 = new Tank(1000);
         var time = TimeService.getInstance();
         time.subscribe(new TimeReporter());
-        for (int x=0; x<10; x++)
+        for (int x=0; x<1; x++)
         {
             ICustomer c = new Customer();
 

@@ -9,7 +9,7 @@ public class DriverStation {
         ITruckService truckService = new TruckService(clock);
         var station = new GasStation(truckService,tank85,tank89,clock);
 
-        for(int i = 0 ;i<100;i++) {
+        for(int i = 0 ;i<1;i++) {
             var c = new Customer();
             c.SetDesiredAmountOfGas(30);
             c.SetMaxAvailableMoney(100);
