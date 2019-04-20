@@ -10,6 +10,7 @@ public class TruckService implements ITruckService {
     TruckService(ITimeObservable time){
         tankList = new LinkedList<>();
         time.subscribe(this);
+        PumpRate = .3;
     }
 
     @Override
@@ -21,10 +22,14 @@ public class TruckService implements ITruckService {
         //add 50-250  ms to the currnt time b
         n = n + minimumWaitTime + tickscurrent;
         TankServiceSchedule TankServiceSchedule = new TankServiceSchedule(tank, n, amt);
-
+        boolean tankalreadyadded = false;
         for (var tankService : tankList) {
-            if (tankService.tank != tank) {
+            if (tankService.tank == tank) {
+                tankalreadyadded = true;
             }
+
+        }
+        if(!tankalreadyadded){
             tankList.add(TankServiceSchedule);
         }
     }
@@ -37,22 +42,25 @@ public class TruckService implements ITruckService {
          newtanklist.add(tankService);
         }
 
-
-
         for (var tankService : tankList) {
-            if (tankService.serviceTime >= ticks) {
+            if (tankService.serviceTime <= ticks) {
                 if(tankService.amt <= 0){
                     if(newtanklist.contains(tankService)){
                         newtanklist.remove(tankService);
                     }
                 }else{
+                    if((tankService.amt - PumpRate) < 0){
+                        tankService.tank.GiveGasToTank(tankService.amt);
+                        tankService.amt = 0;
+                    }
+
                     tankService.tank.GiveGasToTank(PumpRate);
                     tankService.amt = tankService.amt - PumpRate;
+
                 }
             }
 
         }
-
         tankList = newtanklist;
     }
 
@@ -62,6 +70,10 @@ public class TruckService implements ITruckService {
 
     public void SetPumpRate(double rate){
         PumpRate = rate;
+    }
+
+    public LinkedList<TankServiceSchedule> GetServiceSchedule(){
+        return tankList;
     }
 
 }
