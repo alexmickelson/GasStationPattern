@@ -4,12 +4,14 @@ public class TimeService extends Thread implements ITimeObservable{
     private int ticks;
     private int milliSecondDelay;
     private static volatile boolean exists = false;
+    private boolean isPaused;
     private static volatile TimeService oneInstance;
 
     private Vector<ITimeObserver> subscribers;
 
     private TimeService (){
         ticks = 0;
+        isPaused = false;
         milliSecondDelay = 500;
         subscribers = new Vector<ITimeObserver>();
         exists=true;
@@ -29,6 +31,16 @@ public class TimeService extends Thread implements ITimeObservable{
     }
 
     @Override
+    public void pause(){
+        isPaused = true;
+    }
+
+    @Override
+    public void start(){
+        isPaused = false;
+    }
+
+    @Override
     public boolean subscribe(ITimeObserver observer) {
         synchronized (TimeService.class){
             return subscribers.add(observer);
@@ -44,7 +56,7 @@ public class TimeService extends Thread implements ITimeObservable{
 
     @Override
     public void valueUpdated() {
-        for(var sub : subscribers){
+        for (var sub : subscribers) {
             sub.update(ticks);
         }
     }
@@ -65,11 +77,14 @@ public class TimeService extends Thread implements ITimeObservable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ticks++;
-            valueUpdated();
+            if(!isPaused) {
+                ticks++;
+                valueUpdated();
+            }
         }
 
     }
+
 
     public void ChangeSpeedOfProgram(int speed){
         milliSecondDelay = speed;

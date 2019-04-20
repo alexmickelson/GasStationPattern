@@ -3,6 +3,8 @@ public interface ITimeObservable {
     boolean unsubscribe(ITimeObserver observer);
     void valueUpdated();
     void SpeedChanged();
+    void start();
+    void pause();
     void ChangeSpeedOfProgram(int speed);
 
 }
