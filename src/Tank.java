@@ -1,11 +1,15 @@
 public class Tank implements ITank {
     double amount;
-
     double MaxAmount;
+    double GallonsOrdered;
+    double GallonsUsed;
+
 
     public Tank(double initalAmountInGallons){
         this.amount = initalAmountInGallons;
         MaxAmount = 1000;
+        GallonsOrdered = 0;
+        GallonsUsed = 0;
     }
 
     public double RetrieveGasFromTank(double amount) {
@@ -18,11 +22,13 @@ public class Tank implements ITank {
         if(this.amount - amount >= 0)
         {
             this.amount -= amount;
+            GallonsUsed += amount;
             return amount;
         }
         else{
             amount = this.amount;
             this.amount = 0;
+            GallonsUsed += amount;
             return amount;
         }
     }
@@ -42,7 +48,25 @@ public class Tank implements ITank {
         return amount;
     }
 
+    @Override
     public double getMaxAmount(){
         return MaxAmount;
     }
+    @Override
+    public void AddGallonsOrdered(double gallonsOrdered){
+        this.GallonsOrdered = this.GallonsOrdered + gallonsOrdered;
+    }
+    @Override
+    public double GetGallonsOrdered(){
+        return this.GallonsOrdered;
+    }
+    @Override
+    public double GetGallonsUsed(){
+        return this.GallonsUsed;
+    }
+
+
+
+
+
 }
