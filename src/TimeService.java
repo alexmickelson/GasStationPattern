@@ -1,10 +1,10 @@
 import java.util.Vector;
 
-public class TimeService implements ITimeObservable, Runnable {
+public class TimeService extends Thread implements ITimeObservable{
     private int ticks;
     private int milliSecondDelay;
     private static volatile boolean exists = false;
-    private static TimeService oneInstance;
+    private static volatile TimeService oneInstance;
 
     private Vector<ITimeObserver> subscribers;
 
@@ -30,12 +30,16 @@ public class TimeService implements ITimeObservable, Runnable {
 
     @Override
     public boolean subscribe(ITimeObserver observer) {
-        return subscribers.add(observer);
+        synchronized (TimeService.class){
+            return subscribers.add(observer);
+        }
     }
 
     @Override
     public boolean unsubscribe(ITimeObserver observer) {
-        return subscribers.remove(observer);
+        synchronized (TimeService.class) {
+            return subscribers.remove(observer);
+        }
     }
 
     @Override
