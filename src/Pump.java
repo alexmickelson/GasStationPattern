@@ -40,29 +40,53 @@ public class Pump implements IPump, Runnable {
     double total87Pumped;
     double total89Pumped;
 
+    int total85CustomerLost;
+    int total87CustomerLost;
+    int total89CustomerLost;
+
     ICustomer currentCustomer;
     IPumpCurrencyHandler currencyHandler;
 
     //hello world
-
+    @Override
     public GradeEnum GetGradeChosen(){
         return gradeChosen;
     }
 
+    @Override
     public double GetCurrentPumpedAmount(){
         return currentPumpedAmount;
     }
 
+    @Override
     public double Get85GasAmountPumped(){
         return total85Pumped;
     }
 
-     public double Get87GasAmountPumped(){
+    @Override
+    public double Get87GasAmountPumped(){
          return total87Pumped;
     }
 
-     public double Get89GasAmountPumped(){
+    @Override
+    public double Get89GasAmountPumped(){
          return total89Pumped;
+    }
+
+    //return lost customers from having no gas in tank
+    @Override
+    public int Get85LostCustomers(){
+        return total85CustomerLost;
+    }
+
+    @Override
+    public int Get87LostCustomers(){
+        return total87CustomerLost;
+    }
+
+    @Override
+    public int Get89LostCustomers(){
+        return total89CustomerLost;
     }
 
 
@@ -112,22 +136,19 @@ public class Pump implements IPump, Runnable {
     @Override
     public IReceipt PumpTransaction(ICustomer customer) {
 
-            state.addCustomer(customer); //This will call for a customer if we are in NO_CUSTOMER state
+        state.addCustomer(customer); //This will call for a customer if we are in NO_CUSTOMER state
 
 
-            while (state.isPumping()) {
-                try {
-                    Thread.sleep(rateoftime*3);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        while (state.isPumping()) {
+            try {
+                Thread.sleep(rateoftime*3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            IReceipt receipt = state.endTransaction();
-            receipt.printReceipt();
-            //return receipt;
+        }
+        IReceipt receipt = state.endTransaction();
 
-
-        return null;
+       return receipt;
     }
 
     @Override
@@ -228,6 +249,7 @@ public class Pump implements IPump, Runnable {
         receipt.GasGiven = currentPumpedAmount;
         receipt.AmountCharged = currencyHandler.amountCharged();
         receipt.PaymentType = currencyHandler.paymentType();
+        receipt.GasType = gradeChosen;
         return receipt;
     }
 
@@ -259,7 +281,29 @@ public class Pump implements IPump, Runnable {
 
     @Override
     public void run() {
-        PumpTransaction(currentCustomer);
+        IReceipt receipt = PumpTransaction(currentCustomer);
+        if (receipt.GetGasGiven() == 0)
+        {
+            switch(receipt.GetGasType()){
+                case GRADE_85:
+                    total85CustomerLost += 1;
+                    log("Customer has been lost: " + receipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
+                    break;
+                case GRADE_87:
+                    total87CustomerLost += 1;
+                    log("Customer has been lost: " + receipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
+                    break;
+                case GRADE_89:
+                    total89CustomerLost += 1;
+                    log("Customer has been lost: " + receipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
+                    break;
+            }
+
+        }
+        else
+        {
+            receipt.printReceipt();
+        }
     }
 
     public void changespeed(int time) {

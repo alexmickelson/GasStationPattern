@@ -16,7 +16,7 @@ public class TestReceipt {
 
         double gasAmt = 30;
 
-        IReceipt receipt = new Receipt(gasAmt,CurrencyEnum.CASH);
+        IReceipt receipt = new Receipt(gasAmt,CurrencyEnum.CASH, GradeEnum.GRADE_85);
         double amount = Math.round(((Receipt) receipt).AmountCharged*100.0)/100.0;
 
         assertEquals((30*2.76*100.0)/100.0, amount);

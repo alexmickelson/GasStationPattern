@@ -9,6 +9,10 @@ public class DriverPump extends Thread {
     IPump p;
     ICustomer c;
 
+    int total85CustomerLost = 0;
+    int total87CustomerLost = 0;
+    int total89CustomerLost = 0;
+
 
     public DriverPump(ITank tank85amount, ITank tank89amount, ICustomer customer, ITimeObservable time, int pumpNumber) {
         tank85 = tank85amount;
@@ -21,7 +25,13 @@ public class DriverPump extends Thread {
     @Override
     public void run() {
         var r = p.PumpTransaction(c);
-        r.printReceipt();
+        if(r != null) {
+            r.printReceipt();
+        }
+        else{
+            total85CustomerLost += 1;
+            System.out.println("Station lost a customer: out of gas");
+        }
 
 
         System.out.println("\n[Remaining Gas in Tank 85]: " + tank85.getLevel());

@@ -7,5 +7,21 @@ public interface IPump extends ITimeObserver, Runnable {
     boolean IsBusy();
 
     boolean SetCustomer(ICustomer customer);
+    public GradeEnum GetGradeChosen();
+
+    public double GetCurrentPumpedAmount();
+
+    public double Get85GasAmountPumped();
+
+    public double Get87GasAmountPumped();
+
+    public double Get89GasAmountPumped();
+
+    //return lost customers from having no gas in tank
+    public int Get85LostCustomers();
+
+    public int Get87LostCustomers();
+
+    public int Get89LostCustomers();
 
 }
