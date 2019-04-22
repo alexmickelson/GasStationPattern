@@ -44,6 +44,8 @@ public class Pump implements IPump, Runnable {
     int total87CustomerLost;
     int total89CustomerLost;
 
+    double totalEarnings;
+
     ICustomer currentCustomer;
     IPumpCurrencyHandler currencyHandler;
 
@@ -199,6 +201,7 @@ public class Pump implements IPump, Runnable {
                 isPumping = false;
             }
             log("Current Total: " + currentPumpedAmount + "gallons. Pumped: " + gasReceived + "gallons of gas. ");
+            log("Total Earnings: " + totalEarnings);
         }
         else if (currentPumpedAmount < allowedAmount) //We hit here if we are just topping off from our money amount requested
         {
@@ -250,6 +253,7 @@ public class Pump implements IPump, Runnable {
 
     public Receipt endTransaction(){
         currencyHandler.gasGiven(currentPumpedAmount);
+        totalEarnings += currencyHandler.amountCharged();
         Receipt receipt = new Receipt();
         receipt.GasGiven = currentPumpedAmount;
         receipt.AmountCharged = currencyHandler.amountCharged();
