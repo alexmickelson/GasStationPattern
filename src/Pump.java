@@ -268,11 +268,11 @@ public class Pump implements IPump, Runnable {
             }
             case GRADE_87:{
                 total87Pumped += amt;
-                return Retrieve85Grade(amt);
+                return Retrieve87Grade(amt);
             }
             case GRADE_89:{
                 total89Pumped += amt;
-                return Retrieve85Grade(amt);
+                return Retrieve89Grade(amt);
             }
         }
         //we didn't hit anything so we just return 0, we got no gas
