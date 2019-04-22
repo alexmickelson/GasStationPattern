@@ -1,5 +1,6 @@
 import jdk.jfr.Frequency;
 
+import java.sql.SQLOutput;
 import java.util.LinkedList;
 import java.util.Random;
 public class CustomerGenerator implements ITimeObserver, Runnable {
@@ -85,7 +86,8 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
                 newlist.remove(thing);
             }
         }
-
+        System.out.println("Adding Customer to station");
+        System.out.println("Size of list: " + customerarrivallist.size());
         customerarrivallist = newlist;
     }
 
