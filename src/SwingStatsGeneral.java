@@ -2,8 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SwingStatsGeneral extends JPanel {
+
+    public SwingStatsTank tank;
+    public SwingStatsSales sales;
+    public SwingStatsCars cars;
+
     public SwingStatsGeneral(){
         super();
+        tank = new SwingStatsTank();
+        sales = new SwingStatsSales();
+        cars = new SwingStatsCars();
+
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
 
@@ -27,7 +36,6 @@ public class SwingStatsGeneral extends JPanel {
 
 
         //info
-        var tank = new SwingStatsTank();
         tank.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         c.gridx=0;
         c.gridy=1;
@@ -35,13 +43,11 @@ public class SwingStatsGeneral extends JPanel {
 
         c.gridx=1;
         c.fill=GridBagConstraints.BOTH;
-        var sales = new SwingStatsSales();
         sales.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         add(sales, c);
 
         c.gridx=2;
         c.fill=GridBagConstraints.BOTH;
-        var cars = new SwingStatsCars();
         cars.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         add(cars, c);
     }

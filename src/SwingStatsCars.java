@@ -3,17 +3,36 @@ import java.awt.*;
 
 public class SwingStatsCars extends JPanel {
     private JTextArea arrived;
-    private JTextArea Served;
+    private JTextArea served;
     private JTextArea noP;
     private JTextArea noM;
     private JTextArea noR;
     private JTextArea totalLost;
 
+    public void setArrived(int amt){
+        arrived.setText(amt + "");
+    }
+    public void setServed(int amt){
+        served.setText(amt+"");
+    }
+    public void setLostNoPremium(int amt){
+        noP.setText(amt+"");
+    }
+    public void setLostNoMedium(int amt){
+        noM.setText(amt+"");
+    }
+    public void setLostNoRegular(int amt){
+        noR.setText(amt+"");
+    }
+    public void setTotalLost(int amt){
+        totalLost.setText(amt+"");
+    }
+
     public SwingStatsCars(){
         arrived = new JTextArea("none");
         arrived.setEditable(false);
-        Served = new JTextArea("none");
-        Served.setEditable(false);
+        served = new JTextArea("none");
+        served.setEditable(false);
         noP = new JTextArea("none");
         noP.setEditable(false);
         noM = new JTextArea("none");
@@ -63,7 +82,7 @@ public class SwingStatsCars extends JPanel {
         c.gridy=0;
         add(arrived, c);
         c.gridy=1;
-        add(Served, c);
+        add(served, c);
         c.gridy=2;
         add(noP, c);
         c.gridy=3;

@@ -7,6 +7,7 @@ public class SwingStationFrame extends JFrame {
 
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
+        c.insets = new Insets(5, 5, 5, 5);
         c.gridx=0;
         c.gridy=0;
         c.gridheight=3;
@@ -17,6 +18,7 @@ public class SwingStationFrame extends JFrame {
         c.gridy=1;
         add(new SwingStatsGeneral(), c);
         c.gridy=2;
+
         add(new SwingButtons(), c);
 
 

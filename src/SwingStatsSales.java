@@ -6,6 +6,15 @@ public class SwingStatsSales extends JPanel {
     private JTextArea midgrade;
     private JTextArea regular;
 
+    public void setPremiumSold(double amt){
+        premiumGas.setText(amt+"");
+    }
+    public void setMigradeSold(double amt){
+        midgrade.setText(amt+"");
+    }
+    public void setRegularSold(double amt){
+        regular.setText(amt+"");
+    }
 
     public SwingStatsSales(){
 

@@ -6,6 +6,12 @@ public class SwingButton extends JPanel {
     private JButton down;
     private JTextArea stat;
 
+    public void setStat(String stat){
+        this.stat.setText(stat);
+    }
+
+
+
     public SwingButton (String name){
         super();
         up = new JButton("⇧");
@@ -17,7 +23,7 @@ public class SwingButton extends JPanel {
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
 
-        title.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        //title.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         c.gridx=0;
         c.gridy=0;
         c.fill=GridBagConstraints.BOTH;

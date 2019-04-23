@@ -8,9 +8,25 @@ public class SwingTankPanel extends JPanel {
     private JTextArea name;
     private JTextArea totalCapacity;
     private JTextArea reorderPoint;
-    private JTextArea orderPlacd;
+    private JTextArea orderPlaced;
     private JTextArea orderQty;
 
+    public void setTotalCapacity(double amount){
+        totalCapacity.setText(amount+ " gal");
+    }
+    public void setReorderPoint(double amount){
+        reorderPoint.setText(amount+ "gal");
+    }
+    public void setOrderPlaced(boolean isPlaced){
+        if(isPlaced){
+            orderPlaced.setText("Y");
+        } else {
+            orderPlaced.setText("N");
+        }
+    }
+    public void setOrderQty(double amount){
+        orderQty.setText(amount+" gal");
+    }
 
     public SwingTankPanel(String tankName){
         super();
@@ -21,8 +37,8 @@ public class SwingTankPanel extends JPanel {
         totalCapacity.setEditable(false);
         reorderPoint = new JTextArea("Reorder Point: none", 1, 20);
         reorderPoint.setEditable(false);
-        orderPlacd = new JTextArea("Order Placed: none", 1, 20);
-        orderPlacd.setEditable(false);
+        orderPlaced = new JTextArea("Order Placed: none", 1, 20);
+        orderPlaced.setEditable(false);
         orderQty = new JTextArea("Order Quantity: none", 1, 20);
         orderQty.setEditable(false);
 
@@ -43,7 +59,7 @@ public class SwingTankPanel extends JPanel {
         c.gridy=1;
         statsPanel.add(reorderPoint, c);
         c.gridy = 2;
-        statsPanel.add(orderPlacd,c);
+        statsPanel.add(orderPlaced,c);
         c.gridy = 3;
         statsPanel.add(orderQty,c );
 

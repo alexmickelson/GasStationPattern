@@ -12,6 +12,36 @@ public class SwingStatsTank extends JPanel {
     private JTextArea rTotalGallonsOrderedOverage;
 
 
+    public void setPremiumTotalGallonsOrdered(double amt){
+        pTotalGallonsOrdered.setText(amt+"");
+    }
+    public void setPremiumNumberOfOrders(int num){
+        pNumberOfOrders.setText(num+"");
+    }
+    public void setPremiumTotalGallonsDelivered(double amt){
+        pTotalGallonsDelivered.setText(amt+"");
+    }
+    public void setPremiumTotalGallonsOrderedOverage(double amt){
+        pTotalGallonsOrderedOverage.setText(amt+"");
+    }
+
+
+    public void setRegularTotalGallonsOrdered(double amt){
+        rTotalGallonsOrdered.setText(amt+"");
+    }
+    public void setRegularNumberOfOrders(int num){
+        rNumberOfOrders.setText(num+"");
+    }
+    public void setRegularTotalGallonsDelivered(double amt){
+        rTotalGallonsDelivered.setText(amt+"");
+    }
+    public void setRegularTotalGallonsOrderedOverage(double amt){
+        rTotalGallonsOrderedOverage.setText(amt+"");
+    }
+
+
+
+
     public SwingStatsTank(){
         super();
         pTotalGallonsOrdered = new JTextArea("none");

@@ -17,6 +17,39 @@ public class SwingPumpPanel extends JPanel {
     private Border border = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private int textWidth = 20;
 
+    public void setCarDisplay(String s){
+        carDisplay.setText(s);
+    }
+    public void setRequestedFuel(GradeEnum type){
+        switch (type){
+            case GRADE_85:
+                fuelType.setText("85 Grade");
+                break;
+            case GRADE_87:
+                fuelType.setText("87 Grade");
+                break;
+            case GRADE_89:
+                fuelType.setText("89 Grade");
+                break;
+        }
+    }
+    public void setGallonsRequested(double amount){
+        gallonsRequested.setText(amount+"");
+    }
+    public void setGallonsPumped(double amount){
+        gallonsPumped.setText(amount+"");
+    }
+
+    public void setGrade85Total(double amt){
+        grade85Total.setText(amt+" gal");
+    }
+    public void setGrade87Total(double amt){
+        grade87Total.setText(amt+" gal");
+    }
+    public void setGrade89Total(double amt){
+        grade89Total.setText(amt+" gal");
+    }
+
 
     public SwingPumpPanel(String name){
         super();
