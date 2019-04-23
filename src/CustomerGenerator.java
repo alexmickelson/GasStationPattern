@@ -89,7 +89,6 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
                     customerarrivallist.remove(thing);
                     customerslostduetoqueueoverfill++;
-                    System.out.println("a new customer was lost TOTAL: " + customerslostduetoqueueoverfill);
                 }else{
                     station.AddCustomer(thing.customer);
                     customerarrivallist.remove(thing); 
@@ -97,7 +96,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
             }
         }
-
+        System.out.println("TOTAL customers lost: " + customerslostduetoqueueoverfill);
         System.out.println("Adding Customer to station");
         System.out.println("Size of list: " + customerarrivallist.size());
         customerarrivallist = newlist;

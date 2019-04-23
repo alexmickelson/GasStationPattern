@@ -265,18 +265,23 @@ public class Pump implements IPump, Runnable {
     //Get our gas using our selected grade
     public double RequestGas(double amt)
     {
+        double returnedAmt;
         switch (gradeChosen){
             case GRADE_85:{
-                total85Pumped += amt;
-                return Retrieve85Grade(amt);
+                returnedAmt = Retrieve85Grade(amt);
+                total85Pumped += returnedAmt;
+                return returnedAmt;
             }
             case GRADE_87:{
-                total87Pumped += amt;
-                return Retrieve87Grade(amt);
+                returnedAmt = Retrieve87Grade(amt);
+                total87Pumped += returnedAmt;
+                return returnedAmt;
+
             }
             case GRADE_89:{
-                total89Pumped += amt;
-                return Retrieve89Grade(amt);
+                returnedAmt = Retrieve89Grade(amt);
+                total89Pumped += returnedAmt;
+                return returnedAmt;
             }
         }
         //we didn't hit anything so we just return 0, we got no gas

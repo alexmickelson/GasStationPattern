@@ -12,6 +12,9 @@ public class GasStation implements ITimeObserver {
     public int totalCustomersLost85Grade;
     public int totalCustomersLost87Grade;
     public int totalCustomersLost89Grade;
+    public double gasStationTotal85pumped;
+    public double gasStationTotal87pumped;
+    public double gasStationTotal89pumped;
 
     private LinkedList<ICustomer> customerQueue = new LinkedList<>();
     public GasStation( ITruckService truckService,ITank tank85,ITank tank89,ITimeObservable clock){
@@ -82,6 +85,7 @@ public class GasStation implements ITimeObserver {
             log("the world is happy and everything is beautiful");
         }
         getLostTotals();
+        getPumpedTotals();
     }
 
     private void log(String s){
@@ -107,6 +111,25 @@ public class GasStation implements ITimeObserver {
         log("Total Lost Customers 85: " + totalCustomersLost85Grade);
         log("Total Lost Customers 87: " + totalCustomersLost87Grade);
         log("Total Lost Customers 89: " + totalCustomersLost89Grade);
+    }
+
+    private void getPumpedTotals()
+    {
+        gasStationTotal85pumped = 0;
+        gasStationTotal87pumped = 0;
+        gasStationTotal89pumped = 0;
+
+        for(int i = 0; i < pumps.length; i++) {
+            gasStationTotal89pumped += pumps[i].Get85GasAmountPumped();
+            gasStationTotal89pumped += pumps[i].Get87GasAmountPumped();
+            gasStationTotal89pumped += pumps[i].Get89GasAmountPumped();
+
+
+
+        }
+        log("[Tank 85] Total Amount Pumped: " + gasStationTotal89pumped);
+        log("[Tank 87] Total Amount Pumped: " + gasStationTotal89pumped);
+        log("[Tank 89] Total Amount Pumped: " + gasStationTotal89pumped);
     }
 }
 
