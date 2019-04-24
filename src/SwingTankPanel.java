@@ -63,11 +63,13 @@ public class SwingTankPanel extends JPanel {
         c.gridy=0;
         statsPanel.add(totalCapacity, c);
         c.gridy=1;
-        statsPanel.add(reorderPoint, c);
+        statsPanel.add(currentAmount, c);
         c.gridy = 2;
-        statsPanel.add(orderPlaced,c);
+        statsPanel.add(reorderPoint,c);
         c.gridy = 3;
-        statsPanel.add(orderQty,c );
+        statsPanel.add(orderPlaced,c );
+        c.gridy=4;
+        statsPanel.add(orderQty,c);
 
 
 
