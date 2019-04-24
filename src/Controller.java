@@ -42,7 +42,7 @@ public class Controller implements ITimeObserver{
             pump.setCarDisplay("NO CAR");
         }
         pump.setRequestedFuel(station.pumps[i].GetGradeChosen());
-        //pump.setGallonsRequested(station.pumps[i].); //getgallonsrequested from pump
+        pump.setGallonsRequested(Math.round(station.pumps[i].getAmountRequested()*100)/100);
         pump.setGallonsPumped(Math.round(station.pumps[i].GetCurrentPumpedAmount()*100)/100.0);
         pump.setGrade85Total(Math.round(station.pumps[i].Get85GasAmountPumped()*100)/100.0);
         pump.setGrade87Total(Math.round(station.pumps[i].Get87GasAmountPumped()*100)/100.0);
@@ -95,7 +95,7 @@ public class Controller implements ITimeObserver{
         //view.stats.cars.setServed();
         view.stats.cars.setLostNoPremium(station.getTotalCustomersLost89Grade());
         view.stats.cars.setLostNoMedium(station.getTotalCustomersLost87Grade());
-        view.stats.cars.setLostNoRegular(station.getTotalCustomersLost89Grade());
+        view.stats.cars.setLostNoRegular(station.getTotalCustomersLost85Grade());
         view.stats.cars.setTotalLost(customerGenerator.customerslostduetoqueueoverfill); //getter
     }
 
