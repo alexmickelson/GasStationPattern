@@ -4,24 +4,44 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class GasStation implements ITimeObserver {
-    private IPump[] pumps;
+    public IPump[] pumps;
     private ITruckService truckService;
     private ITank tank89;
     private ITank tank85;
-    private double minLevel;
-    public int totalCustomersLost85Grade;
-    public int totalCustomersLost87Grade;
-    public int totalCustomersLost89Grade;
-    public double gasStationTotal85pumped;
-    public double gasStationTotal87pumped;
-    public double gasStationTotal89pumped;
+    public double minLevel;
+    private int totalCustomersLost85Grade;
+    private int totalCustomersLost87Grade;
+    private int totalCustomersLost89Grade;
+    private double gasStationTotal85pumped;
+    private double gasStationTotal87pumped;
+    private double gasStationTotal89pumped;
+
+    public int getTotalCustomersLost85Grade(){
+        return totalCustomersLost85Grade;
+    }
+    public int getTotalCustomersLost87Grade(){
+        return totalCustomersLost87Grade;
+    }
+    public int getTotalCustomersLost89Grade(){
+        return totalCustomersLost89Grade;
+    }
+
+    public double getGasStationTotal85pumped(){
+        return gasStationTotal85pumped;
+    }
+    public double getGasStationTotal87pumped(){
+        return gasStationTotal87pumped;
+    }
+    public double getGasStationTotal89pumped(){
+        return gasStationTotal89pumped;
+    }
 
     private LinkedList<ICustomer> customerQueue = new LinkedList<>();
     public GasStation( ITruckService truckService,ITank tank85,ITank tank89,ITimeObservable clock){
         //customerQueue.add();
         //customerQueue.remove();
         clock.subscribe(this);
-        minLevel = 250;
+        minLevel = 20;
         pumps = new Pump[6];
 
         this.tank85 = tank85;
@@ -115,21 +135,27 @@ public class GasStation implements ITimeObserver {
 
     private void getPumpedTotals()
     {
-        gasStationTotal85pumped = 0;
-        gasStationTotal87pumped = 0;
-        gasStationTotal89pumped = 0;
+        var t85 = 0;
+        var t87 = 0;
+        var t89 = 0;
 
         for(int i = 0; i < pumps.length; i++) {
-            gasStationTotal89pumped += pumps[i].Get85GasAmountPumped();
-            gasStationTotal89pumped += pumps[i].Get87GasAmountPumped();
-            gasStationTotal89pumped += pumps[i].Get89GasAmountPumped();
+            t85 += pumps[i].Get85GasAmountPumped();
+            t87 += pumps[i].Get87GasAmountPumped();
+            t89 += pumps[i].Get89GasAmountPumped();
 
 
 
         }
-        log("[Tank 85] Total Amount Pumped: " + gasStationTotal89pumped);
-        log("[Tank 87] Total Amount Pumped: " + gasStationTotal89pumped);
+
+        gasStationTotal85pumped = t85;
+        gasStationTotal87pumped = t87;
+        gasStationTotal89pumped = t89;
+        log("[Tank 85] Total Amount Pumped: " + gasStationTotal85pumped);
+        log("[Tank 87] Total Amount Pumped: " + gasStationTotal87pumped);
         log("[Tank 89] Total Amount Pumped: " + gasStationTotal89pumped);
+
+
     }
 }
 

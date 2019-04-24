@@ -24,6 +24,8 @@ public class StateEndTransaction implements IState {
     @Override
     public IReceipt endTransaction() {
         receipt = myPump.endTransaction();
+
+        //mike you never print reciept
         myPump.state = myPump.stateNoCustomer;
         return receipt;
     }
@@ -31,5 +33,10 @@ public class StateEndTransaction implements IState {
     @Override
     public void addCustomer(ICustomer customer) {
 
+    }
+
+    @Override
+    public double getAmountRequested() {
+        return myPump.currentCustomer.GetAmountOfGasDesired();
     }
 }

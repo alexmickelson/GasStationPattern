@@ -11,7 +11,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
     private int speed;
     private int currenttick;
     private ITimeObservable clock;
-    private int customerslostduetoqueueoverfill;
+    public int customerslostduetoqueueoverfill;
 
     public  CustomerGenerator(GasStation station, ITimeObservable clock, int frequency){
         AverageGasDesired = 10;
@@ -64,8 +64,10 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
         CustomerArrival cust = new  CustomerArrival();
         cust.customer = customer;
         cust.ArrivalTime = currenttick+Frequency + random.nextInt(Frequency/2);
+        synchronized (customerarrivallist){
 
-        customerarrivallist.add(cust);
+            customerarrivallist.add(cust);
+        }
 
     }
 
@@ -78,22 +80,25 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
     public void update(int ticks) {
         currenttick = ticks;
         LinkedList<CustomerArrival> newlist = new LinkedList<CustomerArrival>();
+        synchronized (customerarrivallist){
+            for (CustomerArrival thing:customerarrivallist) {
 
-        for (CustomerArrival thing:customerarrivallist) {
-            newlist.add(thing);
-        }
+                newlist.add(thing);
 
-        for (CustomerArrival thing:newlist) {
-            if(thing.ArrivalTime == currenttick){
-                if(station.GetQueueLength() > 4){
+            }
 
-                    customerarrivallist.remove(thing);
-                    customerslostduetoqueueoverfill++;
-                }else{
-                    station.AddCustomer(thing.customer);
-                    customerarrivallist.remove(thing); 
+            for (CustomerArrival thing:customerarrivallist) {
+                if(thing.ArrivalTime == currenttick){
+                    if(station.GetQueueLength() > 4){
+
+                        newlist.remove(thing);
+                        customerslostduetoqueueoverfill++;
+                    }else{
+                        station.AddCustomer(thing.customer);
+                        newlist.remove(thing);
+                    }
+
                 }
-
             }
         }
         System.out.println("TOTAL customers lost: " + customerslostduetoqueueoverfill);
@@ -114,7 +119,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
                 GenerateCustomer();
 
                 try {
-                    Thread.sleep(speed*3);
+                    Thread.sleep(speed*100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

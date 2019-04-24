@@ -20,7 +20,7 @@ public class TruckService implements ITruckService {
         //generate a random number between 50 and 250
         Random rand = new Random();
         //add that to the current ticks
-        int n = rand.nextInt(200);
+        int n = rand.nextInt(50);
         //add 50-250  ms to the currnt time b
         n = n + minimumWaitTime + tickscurrent;
 
