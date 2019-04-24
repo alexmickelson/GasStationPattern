@@ -4,11 +4,11 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class GasStation implements ITimeObserver {
-    private IPump[] pumps;
+    public IPump[] pumps;
     private ITruckService truckService;
     private ITank tank89;
     private ITank tank85;
-    private double minLevel;
+    public double minLevel;
     public int totalCustomersLost85Grade;
     public int totalCustomersLost87Grade;
     public int totalCustomersLost89Grade;

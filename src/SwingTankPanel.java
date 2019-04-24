@@ -6,26 +6,30 @@ import java.awt.*;
 public class SwingTankPanel extends JPanel {
 
     private JTextArea name;
+    private JTextArea currentAmount;
     private JTextArea totalCapacity;
     private JTextArea reorderPoint;
     private JTextArea orderPlaced;
     private JTextArea orderQty;
 
+    public void setCurrentAmount(double amount){
+        currentAmount.setText("Current Amount: "+amount);
+    }
     public void setTotalCapacity(double amount){
-        totalCapacity.setText(amount+ " gal");
+        totalCapacity.setText("Total Capacity: "+amount);
     }
     public void setReorderPoint(double amount){
-        reorderPoint.setText(amount+ "gal");
+        reorderPoint.setText("Reorder Point: "+ amount);
     }
     public void setOrderPlaced(boolean isPlaced){
         if(isPlaced){
-            orderPlaced.setText("Y");
+            orderPlaced.setText("Order Placed: YES");
         } else {
-            orderPlaced.setText("N");
+            orderPlaced.setText("Order Placed: NO");
         }
     }
     public void setOrderQty(double amount){
-        orderQty.setText(amount+" gal");
+        orderQty.setText("Order Quantity: "+amount);
     }
 
     public SwingTankPanel(String tankName){
@@ -33,6 +37,8 @@ public class SwingTankPanel extends JPanel {
         name = new JTextArea(tankName, 10, 10);
         name.setEditable(false);
 
+        currentAmount = new JTextArea("Current Amount: none", 1, 20);
+        currentAmount.setEditable(false);
         totalCapacity = new JTextArea("Total Capacity: none", 1, 20);
         totalCapacity.setEditable(false);
         reorderPoint = new JTextArea("Reorder Point: none", 1, 20);

@@ -17,12 +17,12 @@ public class SwingStatsSales extends JPanel {
     }
 
     public SwingStatsSales(){
-
-        premiumGas = new JTextArea("none");
+        var col = 6;
+        premiumGas = new JTextArea("none", 1, col);
         premiumGas.setEditable(false);
-        midgrade = new JTextArea("none");
+        midgrade = new JTextArea("none", 1, col);
         midgrade.setEditable(false);
-        regular = new JTextArea("none");
+        regular = new JTextArea("none", 1, col);
         regular.setEditable(false);
 
         setLayout(new GridBagLayout());

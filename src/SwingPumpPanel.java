@@ -23,31 +23,31 @@ public class SwingPumpPanel extends JPanel {
     public void setRequestedFuel(GradeEnum type){
         switch (type){
             case GRADE_85:
-                fuelType.setText("85 Grade");
+                fuelType.setText("Requested Fuel: 85 Grade");
                 break;
             case GRADE_87:
-                fuelType.setText("87 Grade");
+                fuelType.setText("Requested Fuel: 87 Grade");
                 break;
             case GRADE_89:
-                fuelType.setText("89 Grade");
+                fuelType.setText("Requested Fuel: 89 Grade");
                 break;
         }
     }
     public void setGallonsRequested(double amount){
-        gallonsRequested.setText(amount+"");
+        gallonsRequested.setText("Gallons Requested: " + amount);
     }
     public void setGallonsPumped(double amount){
-        gallonsPumped.setText(amount+"");
+        gallonsPumped.setText("Gallons Pumped: " + amount);
     }
 
     public void setGrade85Total(double amt){
-        grade85Total.setText(amt+" gal");
+        grade85Total.setText("Regular Gas Pumped: "+amt);
     }
     public void setGrade87Total(double amt){
-        grade87Total.setText(amt+" gal");
+        grade87Total.setText("Midgrade Gas Pumped: "+amt);
     }
     public void setGrade89Total(double amt){
-        grade89Total.setText(amt+" gal");
+        grade89Total.setText("Premium Gas Pumped: "+amt);
     }
 
 
@@ -62,7 +62,7 @@ public class SwingPumpPanel extends JPanel {
 
         fuelType = new JTextArea("Requested Fuel: none", 1, textWidth);
         fuelType.setEditable(false);
-        gallonsRequested = new JTextArea("Gallons Req: none", 1, textWidth);
+        gallonsRequested = new JTextArea("Gallons Requested: none", 1, textWidth);
         gallonsRequested.setEditable(false);
         gallonsPumped = new JTextArea("Gallons Pumped: none", 1, textWidth);
         gallonsPumped.setEditable(false);

@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SwingStationFrame extends JFrame {
-    private SwingPumps pumps;
-    private SwingTanks tanks;
-    private SwingStatsGeneral stats;
-    private SwingButtons buttons;
+    public SwingPumps pumps;
+    public SwingTanks tanks;
+    public SwingStatsGeneral stats;
+    public SwingButtons buttons;
 
     public SwingStationFrame(){
         pumps = new SwingPumps();
