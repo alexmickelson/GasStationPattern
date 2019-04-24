@@ -44,6 +44,8 @@ public class Pump implements IPump, Runnable {
     int total87CustomerLost;
     int total89CustomerLost;
 
+    double totalEarnings;
+
     ICustomer currentCustomer;
     IPumpCurrencyHandler currencyHandler;
 
@@ -199,6 +201,7 @@ public class Pump implements IPump, Runnable {
                 isPumping = false;
             }
             log("Current Total: " + currentPumpedAmount + "gallons. Pumped: " + gasReceived + "gallons of gas. ");
+            log("Total Earnings: " + totalEarnings);
         }
         else if (currentPumpedAmount < allowedAmount) //We hit here if we are just topping off from our money amount requested
         {
@@ -250,6 +253,7 @@ public class Pump implements IPump, Runnable {
 
     public Receipt endTransaction(){
         currencyHandler.gasGiven(currentPumpedAmount);
+        totalEarnings += currencyHandler.amountCharged();
         Receipt receipt = new Receipt();
         receipt.GasGiven = currentPumpedAmount;
         receipt.AmountCharged = currencyHandler.amountCharged();
@@ -261,18 +265,23 @@ public class Pump implements IPump, Runnable {
     //Get our gas using our selected grade
     public double RequestGas(double amt)
     {
+        double returnedAmt;
         switch (gradeChosen){
             case GRADE_85:{
-                total85Pumped += amt;
-                return Retrieve85Grade(amt);
+                returnedAmt = Retrieve85Grade(amt);
+                total85Pumped += returnedAmt;
+                return returnedAmt;
             }
             case GRADE_87:{
-                total87Pumped += amt;
-                return Retrieve85Grade(amt);
+                returnedAmt = Retrieve87Grade(amt);
+                total87Pumped += returnedAmt;
+                return returnedAmt;
+
             }
             case GRADE_89:{
-                total89Pumped += amt;
-                return Retrieve85Grade(amt);
+                returnedAmt = Retrieve89Grade(amt);
+                total89Pumped += returnedAmt;
+                return returnedAmt;
             }
         }
         //we didn't hit anything so we just return 0, we got no gas

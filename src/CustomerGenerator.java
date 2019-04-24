@@ -1,5 +1,6 @@
 import jdk.jfr.Frequency;
 
+import java.sql.SQLOutput;
 import java.util.LinkedList;
 import java.util.Random;
 public class CustomerGenerator implements ITimeObserver, Runnable {
@@ -10,14 +11,17 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
     private int speed;
     private int currenttick;
     private ITimeObservable clock;
+    private int customerslostduetoqueueoverfill;
 
     public  CustomerGenerator(GasStation station, ITimeObservable clock, int frequency){
+        AverageGasDesired = 10;
         speed = frequency;
         this.Frequency = frequency;
         customerarrivallist = new LinkedList<>();
         this.clock = clock;
         this.clock.subscribe(this);
         this.station = station;
+        customerslostduetoqueueoverfill = 0;
     }
 
     public void GenerateCustomer(){
@@ -59,7 +63,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
         CustomerArrival cust = new  CustomerArrival();
         cust.customer = customer;
-        cust.ArrivalTime = Frequency + random.nextInt(Frequency/2);
+        cust.ArrivalTime = currenttick+Frequency + random.nextInt(Frequency/2);
 
         customerarrivallist.add(cust);
 
@@ -79,13 +83,22 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
             newlist.add(thing);
         }
 
-        for (CustomerArrival thing:customerarrivallist) {
+        for (CustomerArrival thing:newlist) {
             if(thing.ArrivalTime == currenttick){
-                station.AddCustomer(thing.customer);
-                newlist.remove(thing);
+                if(station.GetQueueLength() > 4){
+
+                    customerarrivallist.remove(thing);
+                    customerslostduetoqueueoverfill++;
+                }else{
+                    station.AddCustomer(thing.customer);
+                    customerarrivallist.remove(thing); 
+                }
+
             }
         }
-
+        System.out.println("TOTAL customers lost: " + customerslostduetoqueueoverfill);
+        System.out.println("Adding Customer to station");
+        System.out.println("Size of list: " + customerarrivallist.size());
         customerarrivallist = newlist;
     }
 
