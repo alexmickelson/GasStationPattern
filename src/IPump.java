@@ -3,7 +3,7 @@ public interface IPump extends ITimeObserver, Runnable {
     double Retrieve87Grade(double amount);
     double Retrieve85Grade(double amount);
 
-    IReceipt PumpTransaction(ICustomer costumer);
+    boolean PumpTransaction(ICustomer costumer);
     boolean IsBusy();
 
     boolean SetCustomer(ICustomer customer);
@@ -25,5 +25,7 @@ public interface IPump extends ITimeObserver, Runnable {
     public int Get89LostCustomers();
 
     double getAmountRequested();
+
+    int getTotalCustomersServed();
 
 }

@@ -91,8 +91,8 @@ public class Controller implements ITimeObserver{
         view.stats.sales.setRegularSold(Math.round(station.getGasStationTotal85pumped()*100)/100); 
 
         //cars
-        //view.stats.cars.setArrived();
-        //view.stats.cars.setServed();
+        view.stats.cars.setArrived(station.getTotalCustomersArrived());
+        view.stats.cars.setServed(station.getTotalStationCustomersServed());
         view.stats.cars.setLostNoPremium(station.getTotalCustomersLost89Grade());
         view.stats.cars.setLostNoMedium(station.getTotalCustomersLost87Grade());
         view.stats.cars.setLostNoRegular(station.getTotalCustomersLost85Grade());

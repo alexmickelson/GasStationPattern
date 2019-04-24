@@ -26,8 +26,8 @@ public class StatePumpingGas implements IState {
     }
 
     @Override
-    public IReceipt endTransaction() {
-        return null;
+    public void endTransaction() {
+
     }
 
     @Override
@@ -38,5 +38,10 @@ public class StatePumpingGas implements IState {
     @Override
     public double getAmountRequested() {
         return myPump.currentCustomer.GetAmountOfGasDesired();
+    }
+
+    @Override
+    public void printReceipt() {
+
     }
 }
