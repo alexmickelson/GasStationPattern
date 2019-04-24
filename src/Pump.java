@@ -45,6 +45,9 @@ public class Pump implements IPump, Runnable {
     int total89CustomerLost;
 
     double totalEarnings;
+    public double getAmountRequested(){
+        return state.getAmountRequested();
+    }
 
     ICustomer currentCustomer;
     IPumpCurrencyHandler currencyHandler;

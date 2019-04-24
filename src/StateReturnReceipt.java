@@ -1,7 +1,7 @@
 public class StateReturnReceipt implements IState {
     Pump myPump;
 
-    StateReturnReceipt(Pump myPump)
+    public StateReturnReceipt(Pump myPump)
     {
         this.myPump = myPump;
     }
@@ -28,5 +28,10 @@ public class StateReturnReceipt implements IState {
     @Override
     public void addCustomer(ICustomer customer) {
 
+    }
+
+    @Override
+    public double getAmountRequested() {
+        return myPump.currentCustomer.GetAmountOfGasDesired();
     }
 }

@@ -24,4 +24,6 @@ public interface IPump extends ITimeObserver, Runnable {
 
     public int Get89LostCustomers();
 
+    double getAmountRequested();
+
 }
