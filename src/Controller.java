@@ -86,16 +86,16 @@ public class Controller implements ITimeObserver{
         //view.stats.tank.setRegularTotalGallonsOrderedOverage();
 
         //sales
-        view.stats.sales.setPremiumSold(Math.round(station.gasStationTotal89pumped*100)/100); //getter
-        view.stats.sales.setMigradeSold(Math.round(station.gasStationTotal87pumped*100)/100); //getter
-        view.stats.sales.setRegularSold(Math.round(station.gasStationTotal85pumped*100)/100); //getter
+        view.stats.sales.setPremiumSold(Math.round(station.getGasStationTotal89pumped()*100)/100);
+        view.stats.sales.setMigradeSold(Math.round(station.getGasStationTotal87pumped()*100)/100);
+        view.stats.sales.setRegularSold(Math.round(station.getGasStationTotal85pumped()*100)/100); 
 
         //cars
         //view.stats.cars.setArrived();
         //view.stats.cars.setServed();
-        view.stats.cars.setLostNoPremium(station.totalCustomersLost89Grade); //getter
-        view.stats.cars.setLostNoMedium(station.totalCustomersLost87Grade); //getter
-        view.stats.cars.setLostNoRegular(station.totalCustomersLost85Grade); //getter
+        view.stats.cars.setLostNoPremium(station.getTotalCustomersLost89Grade());
+        view.stats.cars.setLostNoMedium(station.getTotalCustomersLost87Grade());
+        view.stats.cars.setLostNoRegular(station.getTotalCustomersLost89Grade());
         view.stats.cars.setTotalLost(customerGenerator.customerslostduetoqueueoverfill); //getter
     }
 

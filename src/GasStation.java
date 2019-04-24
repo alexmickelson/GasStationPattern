@@ -9,12 +9,32 @@ public class GasStation implements ITimeObserver {
     private ITank tank89;
     private ITank tank85;
     public double minLevel;
-    public int totalCustomersLost85Grade;
-    public int totalCustomersLost87Grade;
-    public int totalCustomersLost89Grade;
-    public double gasStationTotal85pumped;
-    public double gasStationTotal87pumped;
-    public double gasStationTotal89pumped;
+    private int totalCustomersLost85Grade;
+    private int totalCustomersLost87Grade;
+    private int totalCustomersLost89Grade;
+    private double gasStationTotal85pumped;
+    private double gasStationTotal87pumped;
+    private double gasStationTotal89pumped;
+
+    public int getTotalCustomersLost85Grade(){
+        return totalCustomersLost85Grade;
+    }
+    public int getTotalCustomersLost87Grade(){
+        return totalCustomersLost87Grade;
+    }
+    public int getTotalCustomersLost89Grade(){
+        return totalCustomersLost89Grade;
+    }
+
+    public double getGasStationTotal85pumped(){
+        return gasStationTotal85pumped;
+    }
+    public double getGasStationTotal87pumped(){
+        return gasStationTotal87pumped;
+    }
+    public double getGasStationTotal89pumped(){
+        return gasStationTotal89pumped;
+    }
 
     private LinkedList<ICustomer> customerQueue = new LinkedList<>();
     public GasStation( ITruckService truckService,ITank tank85,ITank tank89,ITimeObservable clock){
