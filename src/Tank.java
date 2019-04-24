@@ -3,12 +3,17 @@ public class Tank implements ITank {
     double MaxAmount;
     double GallonsOrdered;
     double GallonsUsed;
-
+    int TotalNumberOfOrders;
+    double GallonsDelivered;
 
     public Tank(double initalAmountInGallons){
+        this.GallonsOrdered = 0;
+        //the inital amount has been recived because the tank starts full.
+        this.GallonsDelivered = initalAmountInGallons;
         this.amount = initalAmountInGallons;
         MaxAmount = initalAmountInGallons;
-        GallonsOrdered = 0;
+        GallonsOrdered = initalAmountInGallons;
+        TotalNumberOfOrders = 1;
         GallonsUsed = 0;
     }
 
@@ -52,6 +57,8 @@ public class Tank implements ITank {
     public void AddGallonsOrdered(double gallonsOrdered){
         this.GallonsOrdered = this.GallonsOrdered + gallonsOrdered;
     }
+
+
     @Override
     public double GetGallonsOrdered(){
         return this.GallonsOrdered;
@@ -61,8 +68,25 @@ public class Tank implements ITank {
         return this.GallonsUsed;
     }
 
+    @Override
+    public void AddNewOrder() {
+        TotalNumberOfOrders++;
+    }
 
+    @Override
+    public int GetNumberOfOrders() {
+        return TotalNumberOfOrders;
+    }
 
+    @Override
+    public void AddGallonsDeliverd(double gallons) {
+        GallonsDelivered += gallons;
+    }
+
+    @Override
+    public double GetGallonsDeliverd() {
+        return GallonsDelivered;
+    }
 
 
 }

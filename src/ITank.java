@@ -7,10 +7,11 @@ public interface ITank {
     double getMaxAmount();
     public void AddGallonsOrdered(double gallonsOrdered);
     public double GetGallonsOrdered();
-
-
     public double GetGallonsUsed();
-
+    public void AddNewOrder();
+    public int GetNumberOfOrders();
+    public void AddGallonsDeliverd(double gallons);
+    public double GetGallonsDeliverd();
 
 
 }

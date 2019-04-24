@@ -44,22 +44,23 @@ public class SwingStatsTank extends JPanel {
 
     public SwingStatsTank(){
         super();
-        pTotalGallonsOrdered = new JTextArea("none");
+        var col = 6;
+        pTotalGallonsOrdered = new JTextArea("none",1,col);
         pTotalGallonsOrdered.setEditable(false);
-        pNumberOfOrders = new JTextArea("none");
+        pNumberOfOrders = new JTextArea("none",1,col);
         pNumberOfOrders.setEditable(false);
-        pTotalGallonsDelivered = new JTextArea("none");
+        pTotalGallonsDelivered = new JTextArea("none",1,col);
         pTotalGallonsDelivered.setEditable(false);
-        pTotalGallonsOrderedOverage = new JTextArea("none");
+        pTotalGallonsOrderedOverage = new JTextArea("none",1,col);
         pTotalGallonsOrderedOverage.setEditable(false);
 
-        rTotalGallonsOrdered = new JTextArea("none");
+        rTotalGallonsOrdered = new JTextArea("none",1,col);
         rTotalGallonsOrdered.setEditable(false);
-        rNumberOfOrders = new JTextArea("none");
+        rNumberOfOrders = new JTextArea("none",1,col);
         rNumberOfOrders.setEditable(false);
-        rTotalGallonsDelivered = new JTextArea("none");
+        rTotalGallonsDelivered = new JTextArea("none",1,col);
         rTotalGallonsDelivered.setEditable(false);
-        rTotalGallonsOrderedOverage = new JTextArea("none");
+        rTotalGallonsOrderedOverage = new JTextArea("none",1,col);
         rTotalGallonsOrderedOverage.setEditable(false);
 
         //Premium Panel

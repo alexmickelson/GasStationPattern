@@ -17,7 +17,7 @@ public class Controller implements ITimeObserver{
                       SwingStationFrame view){
         this.station = station;
         this.clock = clock;
-        //clock.ChangeSpeedOfProgram(1);
+        clock.ChangeSpeedOfProgram(100);
         this.tank85 = tank85;
         this.tank89 = tank89;
         this.truckService = truckService;
@@ -75,14 +75,14 @@ public class Controller implements ITimeObserver{
 
         //STATS
         //tank
-        //view.stats.tank.setPremiumTotalGallonsOrdered(station.);
-        //view.stats.tank.setPremiumNumberOfOrders();
-        //view.stats.tank.setPremiumTotalGallonsDelivered();
+        view.stats.tank.setPremiumTotalGallonsOrdered(Math.round(tank89.GetGallonsOrdered()*100)/100);
+        view.stats.tank.setPremiumNumberOfOrders(tank89.GetNumberOfOrders());
+        view.stats.tank.setPremiumTotalGallonsDelivered(Math.round(tank89.GetGallonsDeliverd()*100)/100);
         //view.stats.tank.setPremiumTotalGallonsOrderedOverage();
 
-        //view.stats.tank.setRegularTotalGallonsOrdered(station.);
-        //view.stats.tank.setRegularNumberOfOrders();
-        //view.stats.tank.setRegularTotalGallonsDelivered();
+        view.stats.tank.setRegularTotalGallonsOrdered(Math.round(tank85.GetGallonsOrdered()*100)/100);
+        view.stats.tank.setRegularNumberOfOrders(tank85.GetNumberOfOrders());
+        view.stats.tank.setRegularTotalGallonsDelivered(Math.round(tank85.GetGallonsDeliverd()*100)/100);
         //view.stats.tank.setRegularTotalGallonsOrderedOverage();
 
         //sales

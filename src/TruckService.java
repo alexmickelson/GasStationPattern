@@ -34,8 +34,8 @@ public class TruckService implements ITruckService {
         }
         if(!tankalreadyadded){
             tank.AddGallonsOrdered(amt);
+            tank.AddNewOrder();
             tankList.add(TankServiceSchedule);
-
             System.out.println("Truck has been called YEET");
         }
 
@@ -58,13 +58,17 @@ public class TruckService implements ITruckService {
                 }else{
                     if((tankService.amt - PumpRate) < 0){
                         tankService.tank.GiveGasToTank(tankService.amt);
+                        tankService.tank.AddGallonsDeliverd(tankService.amt);
                         tankService.amt = 0;
+                        System.out.println("Tank is at: "+tankService.tank.getLevel()+" Gallons");
+                    }else{
+                        tankService.tank.GiveGasToTank(PumpRate);
+                        tankService.tank.AddGallonsDeliverd(PumpRate);
+                        tankService.amt = tankService.amt - PumpRate;
                         System.out.println("Tank is at: "+tankService.tank.getLevel()+" Gallons");
                     }
 
-                    tankService.tank.GiveGasToTank(PumpRate);
-                    tankService.amt = tankService.amt - PumpRate;
-                    System.out.println("Tank is at: "+tankService.tank.getLevel()+" Gallons");
+
 
                 }
             }
