@@ -1,17 +1,26 @@
+import org.jmock.api.Action;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
-public class SwingStationFrame extends JFrame {
+public class SwingStationFrame extends JFrame implements Runnable {
     public SwingPumps pumps;
     public SwingTanks tanks;
     public SwingStatsGeneral stats;
     public SwingButtons buttons;
+    private ActionListener actionListener;
 
-    public SwingStationFrame(){
+    public SwingStationFrame(ActionListener actionListener){
+        this.actionListener = actionListener;
+    }
+
+    @Override
+    public void run() {
         pumps = new SwingPumps();
         tanks = new SwingTanks();
         stats = new SwingStatsGeneral();
-        buttons = new SwingButtons();
+        buttons = new SwingButtons(actionListener);
 
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
@@ -37,5 +46,6 @@ public class SwingStationFrame extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
     }
 }

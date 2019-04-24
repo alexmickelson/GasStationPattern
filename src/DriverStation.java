@@ -13,8 +13,7 @@ public class DriverStation {
 
         ITruckService truckService = new TruckService(clock);
         var station = new GasStation(truckService,tank85,tank89,clock);
-        int freq = 10;
-        CustomerGenerator customerGenerator = new CustomerGenerator(station,clock,freq);
+        CustomerGenerator customerGenerator = new CustomerGenerator(station,clock);
         customerGenerator.run();
 
 

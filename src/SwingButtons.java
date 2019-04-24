@@ -1,24 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class SwingButtons extends JPanel {
 
-    private SwingButton orderSpeed;
-    private SwingButton carArrivalSpeed;
-    private SwingButton pumpingSpeed;
-    private SwingButton avgGasReq;
+    public SwingButton orderSpeed;
+    public SwingButton carArrivalSpeed;
+    public SwingButton pumpingSpeed;
+    public SwingButton avgGasReq;
 
-    public SwingButtons(){
+    public SwingButtons(ActionListener actionListener){
         super();
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
         setBorder(BorderFactory.createRaisedBevelBorder());
 
 
-        orderSpeed = new SwingButton("Speed of Order Arriving   ");
-        carArrivalSpeed = new SwingButton("Speed of Cars Arriving   ");
-        pumpingSpeed = new SwingButton("Speed of Pumping    ");
-        avgGasReq=new SwingButton("Average Gas Request (gal)    ");
+        orderSpeed = new SwingButton("Speed of Order Arriving   ", actionListener);
+        carArrivalSpeed = new SwingButton("Speed of Cars Arriving   ", actionListener);
+        pumpingSpeed = new SwingButton("Speed of Pumping    ", actionListener);
+        avgGasReq=new SwingButton("Average Gas Request (gal)    ", actionListener);
 
         c.gridx=0;
         c.gridy=0;

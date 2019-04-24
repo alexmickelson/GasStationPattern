@@ -1,6 +1,9 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-public class Controller implements ITimeObserver{
+public class Controller implements ITimeObserver, ActionListener {
     public GasStation station;
     public CustomerGenerator customerGenerator;
     public ITimeObservable clock;
@@ -13,17 +16,19 @@ public class Controller implements ITimeObserver{
                       ITimeObservable clock,
                       ITank tank85,
                       ITank tank89,
-                      ITruckService truckService,
-                      SwingStationFrame view){
+                      ITruckService truckService){//,
+                      //SwingStationFrame view){
         this.station = station;
         this.clock = clock;
         //clock.ChangeSpeedOfProgram(1);
         this.tank85 = tank85;
         this.tank89 = tank89;
         this.truckService = truckService;
-        this.view = view;
+        this.view = new SwingStationFrame(this);
+        Thread t = new Thread(view);//view not updateing
+        t.start();
 
-        customerGenerator = new CustomerGenerator(station,clock,10);
+        customerGenerator = new CustomerGenerator(station,clock);
         Thread c = new Thread(customerGenerator);
         clock.subscribe(this);
         c.start();
@@ -105,4 +110,27 @@ public class Controller implements ITimeObserver{
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton clicked = (JButton)e.getSource();
+
+        if(clicked == view.buttons.orderSpeed.getUp()){
+            customerGenerator.setFrequency(customerGenerator.getFrequency()+1);
+            view.buttons.orderSpeed.setStat(customerGenerator.getFrequency() + "%");
+        } else if (clicked == view.buttons.orderSpeed.getDown()){
+
+        } else if (clicked == view.buttons.carArrivalSpeed.getUp()){
+
+        } else if (clicked == view.buttons.carArrivalSpeed.getDown()){
+
+        } else if (clicked == view.buttons.pumpingSpeed.getUp()){
+
+        } else if (clicked == view.buttons.pumpingSpeed.getDown()){
+
+        } else if (clicked == view.buttons.avgGasReq.getUp()){
+
+        } else if (clicked == view.buttons.avgGasReq.getDown()){
+
+        }
+    }
 }
