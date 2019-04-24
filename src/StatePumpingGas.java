@@ -34,4 +34,9 @@ public class StatePumpingGas implements IState {
     public void addCustomer(ICustomer customer) {
 
     }
+
+    @Override
+    public double getAmountRequested() {
+        return myPump.currentCustomer.GetAmountOfGasDesired();
+    }
 }

@@ -4,7 +4,7 @@ public interface IState {
     void pumpGas();
     IReceipt endTransaction();
     void addCustomer(ICustomer customer);
-
+    double getAmountRequested();
 }
 
 

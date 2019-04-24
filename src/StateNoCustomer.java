@@ -33,4 +33,9 @@ public class StateNoCustomer implements IState {
         myPump.log("switching to pumping state") ;
         myPump.state = myPump.statePumpingGas;
     }
+
+    @Override
+    public double getAmountRequested() {
+        return 0;
+    }
 }
