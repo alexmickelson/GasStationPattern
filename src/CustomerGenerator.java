@@ -119,7 +119,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
                 GenerateCustomer();
 
                 try {
-                    Thread.sleep(speed*3);
+                    Thread.sleep(speed*100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
