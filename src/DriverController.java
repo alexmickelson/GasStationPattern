@@ -10,6 +10,7 @@ public class DriverController {
 
 
         ITruckService truckService = new TruckService(clock);
+        truckService.SetMinimumWaitTime(500);
         var station = new GasStation(truckService,tank85,tank89,clock);
         var view = new SwingStationFrame();
         new Controller(station,clock,tank85,tank89,truckService,view);

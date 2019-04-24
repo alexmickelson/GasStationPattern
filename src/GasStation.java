@@ -21,7 +21,7 @@ public class GasStation implements ITimeObserver {
         //customerQueue.add();
         //customerQueue.remove();
         clock.subscribe(this);
-        minLevel = 250;
+        minLevel = 20;
         pumps = new Pump[6];
 
         this.tank85 = tank85;
