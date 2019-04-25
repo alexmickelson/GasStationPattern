@@ -26,7 +26,7 @@ public class SwingButton extends JPanel {
         up.addActionListener(actionListener);
         down = new JButton("⇩");
         down.addActionListener(actionListener);
-        stat = new JTextArea("100%");
+        stat = new JTextArea("null%", 1, 4);
         stat.setEditable(false);
         var title = new JLabel(name);
 

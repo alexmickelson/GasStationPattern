@@ -17,7 +17,7 @@ public class SwingButtons extends JPanel {
 
 
         orderSpeed = new SwingButton("Speed of Order Arriving   ", actionListener);
-        carArrivalSpeed = new SwingButton("Speed of Cars Arriving   ", actionListener);
+        carArrivalSpeed = new SwingButton("Car Arrival Frequency   ", actionListener);
         pumpingSpeed = new SwingButton("Speed of Pumping    ", actionListener);
         avgGasReq=new SwingButton("Average Gas Request (gal)    ", actionListener);
 

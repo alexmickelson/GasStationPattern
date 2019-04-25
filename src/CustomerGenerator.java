@@ -70,7 +70,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
         CustomerArrival cust = new  CustomerArrival();
         cust.customer = customer;
-        cust.ArrivalTime = currenttick+Frequency + random.nextInt(Frequency/2);
+        cust.ArrivalTime = currenttick + random.nextInt(Frequency); //maybe tune this equation
         synchronized (customerarrivallist){
 
             customerarrivallist.add(cust);
