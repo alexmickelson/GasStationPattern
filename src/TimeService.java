@@ -56,8 +56,10 @@ public class TimeService extends Thread implements ITimeObservable{
 
     @Override
     public void valueUpdated() {
-        for (var sub : subscribers) {
-            sub.update(ticks);
+        synchronized (subscribers){
+            for (var sub : subscribers) {
+                sub.update(ticks);
+            }
         }
     }
 

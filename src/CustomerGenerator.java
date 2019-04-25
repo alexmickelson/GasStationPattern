@@ -13,10 +13,17 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
     private ITimeObservable clock;
     public int customerslostduetoqueueoverfill;
 
-    public  CustomerGenerator(GasStation station, ITimeObservable clock, int frequency){
+    public int getFrequency(){
+        return Frequency;
+    }
+    public void setFrequency(int f){
+        Frequency = f;
+    }
+
+    public  CustomerGenerator(GasStation station, ITimeObservable clock){
         AverageGasDesired = 10;
-        speed = frequency;
-        this.Frequency = frequency;
+        this.speed = 10;
+        this.Frequency = 100;
         customerarrivallist = new LinkedList<>();
         this.clock = clock;
         this.clock.subscribe(this);
@@ -63,7 +70,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
         CustomerArrival cust = new  CustomerArrival();
         cust.customer = customer;
-        cust.ArrivalTime = currenttick+Frequency + random.nextInt(Frequency/2);
+        cust.ArrivalTime = currenttick + random.nextInt(Frequency); //maybe tune this equation
         synchronized (customerarrivallist){
 
             customerarrivallist.add(cust);
@@ -119,7 +126,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
                 GenerateCustomer();
 
                 try {
-                    Thread.sleep(speed*100);
+                    Thread.sleep(speed*Frequency);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

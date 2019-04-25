@@ -1,10 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class SwingButton extends JPanel {
     private JButton up;
     private JButton down;
     private JTextArea stat;
+
+    public JButton getUp(){
+        return up;
+    }
+    public JButton getDown(){
+        return down;
+    }
 
     public void setStat(String stat){
         this.stat.setText(stat);
@@ -12,11 +20,13 @@ public class SwingButton extends JPanel {
 
 
 
-    public SwingButton (String name){
+    public SwingButton (String name, ActionListener actionListener){
         super();
         up = new JButton("⇧");
+        up.addActionListener(actionListener);
         down = new JButton("⇩");
-        stat = new JTextArea("100%");
+        down.addActionListener(actionListener);
+        stat = new JTextArea("null%", 1, 4);
         stat.setEditable(false);
         var title = new JLabel(name);
 
