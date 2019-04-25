@@ -5,9 +5,12 @@ public class Tank implements ITank {
     double GallonsUsed;
     int TotalNumberOfOrders;
     double GallonsDelivered;
+    private boolean orderScheduled;
+    private double currentOrderAmount;
 
     public Tank(double initalAmountInGallons){
         this.GallonsOrdered = 0;
+        this.orderScheduled = false;
         //the inital amount has been recived because the tank starts full.
         this.GallonsDelivered = initalAmountInGallons;
         this.amount = initalAmountInGallons;
@@ -86,6 +89,26 @@ public class Tank implements ITank {
     @Override
     public double GetGallonsDeliverd() {
         return GallonsDelivered;
+    }
+
+    @Override
+    public boolean IsOrderScheduld() {
+        return orderScheduled;
+    }
+
+    @Override
+    public void SetOrderSchedueld(boolean orderScheduled) {
+        this.orderScheduled = orderScheduled;
+    }
+
+    @Override
+    public double GetCurrentOrderAmount() {
+        return currentOrderAmount;
+    }
+
+    @Override
+    public void SetCurrentOrderAmount(double orderAmmount) {
+        this.currentOrderAmount = orderAmmount;
     }
 
 

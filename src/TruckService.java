@@ -35,6 +35,8 @@ public class TruckService implements ITruckService {
         if(!tankalreadyadded){
             tank.AddGallonsOrdered(amt);
             tank.AddNewOrder();
+            tank.SetOrderSchedueld(true);
+            tank.SetCurrentOrderAmount(amt);
             tankList.add(TankServiceSchedule);
             System.out.println("Truck has been called YEET");
         }
@@ -51,6 +53,8 @@ public class TruckService implements ITruckService {
 
         for (var tankService : tankList) {
             if (tankService.serviceTime <= ticks) {
+                tankService.tank.SetOrderSchedueld(false);
+                tankService.tank.SetCurrentOrderAmount(0);
                 if(tankService.amt <= 0){
                     if(newtanklist.contains(tankService)){
                         newtanklist.remove(tankService);
