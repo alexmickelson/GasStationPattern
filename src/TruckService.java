@@ -17,7 +17,7 @@ public class TruckService implements ITruckService {
 
     @Override
     public void CallTruck(ITank tank, double amt) {
-        //generate a random number between 50 and 250
+        //generate a random number between 50 and 25
         Random rand = new Random();
         //add that to the current ticks
         int n = rand.nextInt(50);
@@ -78,7 +78,12 @@ public class TruckService implements ITruckService {
     }
 
     public void SetMinimumWaitTime(int min){
+
         minimumWaitTime = min;
+    }
+
+    public int GetMinimumWaitTime(){
+        return this.minimumWaitTime;
     }
 
     public void SetPumpRate(double rate){

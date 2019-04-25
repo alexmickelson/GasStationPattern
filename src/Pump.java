@@ -94,6 +94,14 @@ public class Pump implements IPump, Runnable {
         return total89CustomerLost;
     }
 
+    public double GetPumpSpeed(){
+        return gasIncrementPerSecond;
+    }
+    public void SetPumpSpeed(double speed){
+        this.gasIncrementPerSecond = speed;
+    }
+
+
 
 
 

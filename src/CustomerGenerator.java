@@ -135,5 +135,12 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
             }
         }
     }
+
+    public void SetAverageGasRequested(int i){
+        this.AverageGasDesired = i;
+    }
+    public int GetAverageGasRequested(){
+        return this.AverageGasDesired;
+    }
 }
 

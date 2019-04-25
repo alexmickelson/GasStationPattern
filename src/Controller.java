@@ -41,8 +41,9 @@ public class Controller implements ITimeObserver, ActionListener {
         }
         //initialize button values
         this.view.buttons.carArrivalSpeed.setStat(customerGenerator.getFrequency()+"");
-
-
+        this.view.buttons.pumpingSpeed.setStat(station.pumps[0].GetPumpSpeed()+"G/S");
+        this.view.buttons.orderSpeed.setStat(this.truckService.GetMinimumWaitTime()+25+"S");
+        this.view.buttons.avgGasReq.setStat((this.customerGenerator.GetAverageGasRequested()+10)+"G");
         clock.subscribe(this);
     }
 
@@ -132,8 +133,14 @@ public class Controller implements ITimeObserver, ActionListener {
         JButton clicked = (JButton)e.getSource();
 
         if(clicked == view.buttons.orderSpeed.getUp()){
-
+            truckService.SetMinimumWaitTime(truckService.GetMinimumWaitTime()+10);
+            this.view.buttons.orderSpeed.setStat(this.truckService.GetMinimumWaitTime()+25+"S");
         } else if (clicked == view.buttons.orderSpeed.getDown()){
+            if(truckService.GetMinimumWaitTime()< 10){
+                return;
+            }
+            truckService.SetMinimumWaitTime(truckService.GetMinimumWaitTime()-10);
+            this.view.buttons.orderSpeed.setStat(this.truckService.GetMinimumWaitTime()+25+"S");
 
         } else if (clicked == view.buttons.carArrivalSpeed.getUp()){
 
@@ -145,13 +152,28 @@ public class Controller implements ITimeObserver, ActionListener {
             view.buttons.carArrivalSpeed.setStat(customerGenerator.getFrequency() + "");
 
         } else if (clicked == view.buttons.pumpingSpeed.getUp()){
-
+            if(station.pumps[1].GetPumpSpeed()-.1 < 0){
+                return;
+            }
+            for(var pump : station.pumps){
+                pump.SetPumpSpeed(Math.round((pump.GetPumpSpeed()+.1)*100)/100.0);
+            }
+            view.buttons.pumpingSpeed.setStat(station.pumps[1].GetPumpSpeed()+"G/S");
         } else if (clicked == view.buttons.pumpingSpeed.getDown()){
-
+            if(station.pumps[1].GetPumpSpeed()-.1 < 0){
+                return;
+            }
+            for(var pump : station.pumps){
+                pump.SetPumpSpeed(Math.round((pump.GetPumpSpeed()-.1)*100)/100.0);
+            }
+            view.buttons.pumpingSpeed.setStat(station.pumps[1].GetPumpSpeed()+"G/S");
         } else if (clicked == view.buttons.avgGasReq.getUp()){
-
+            customerGenerator.SetAverageGasRequested(customerGenerator.GetAverageGasRequested()+1);
+            this.view.buttons.avgGasReq.setStat((this.customerGenerator.GetAverageGasRequested()+10)+"G");
         } else if (clicked == view.buttons.avgGasReq.getDown()){
 
+            customerGenerator.SetAverageGasRequested((customerGenerator.GetAverageGasRequested()-1)<=0?0:customerGenerator.GetAverageGasRequested()-1);
+            this.view.buttons.avgGasReq.setStat((this.customerGenerator.GetAverageGasRequested()+10)+"G");
         }
     }
 }
