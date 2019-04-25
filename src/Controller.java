@@ -77,14 +77,14 @@ public class Controller implements ITimeObserver, ActionListener {
         view.tanks.regular.setCurrentAmount(Math.round(tank85.getLevel()*100)/100.0);
         view.tanks.regular.setTotalCapacity(Math.round(tank85.getMaxAmount()*100)/100.0);
         view.tanks.regular.setReorderPoint(Math.round(station.minLevel*100)/100.0);
-        //view.tanks.regular.setOrderPlaced(truckService.);
-        //view.tanks.regular.setOrderQty();
+        view.tanks.regular.setOrderPlaced(tank85.IsOrderScheduld());
+        view.tanks.regular.setOrderQty(Math.round(tank85.GetCurrentOrderAmount()*100)/100);
 
         view.tanks.premium.setCurrentAmount(Math.round(tank89.getLevel()*100)/100.0);
         view.tanks.premium.setTotalCapacity(Math.round(tank89.getMaxAmount()*100)/100.0);
         view.tanks.premium.setReorderPoint(Math.round(station.minLevel*100)/100.0);
-        //view.tanks.premium.setOrderPlaced(truckService.);
-        //view.tanks.premium.setOrderQty();
+        view.tanks.premium.setOrderPlaced(tank89.IsOrderScheduld());
+        view.tanks.premium.setOrderQty(Math.round(tank89.GetCurrentOrderAmount()*100)/100);
 
         //STATS
         //tank

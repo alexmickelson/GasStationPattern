@@ -12,6 +12,11 @@ public interface ITank {
     public int GetNumberOfOrders();
     public void AddGallonsDeliverd(double gallons);
     public double GetGallonsDeliverd();
+    public boolean IsOrderScheduld();
+    public void SetOrderSchedueld(boolean orderScheduled);
+    public double GetCurrentOrderAmount();
+    public void SetCurrentOrderAmount(double orderAmmount);
+
 
 
 }
