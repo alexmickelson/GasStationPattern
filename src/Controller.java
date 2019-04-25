@@ -91,7 +91,7 @@ public class Controller implements ITimeObserver, ActionListener {
         view.stats.tank.setPremiumNumberOfOrders(tank89.GetNumberOfOrders());
         view.stats.tank.setPremiumTotalGallonsDelivered(Math.round(tank89.GetGallonsDeliverd()*100)/100);
         if(tank89.GetGallonsOrdered()<tank89.GetGallonsDeliverd()){
-            view.stats.tank.setPremiumTotalGallonsOrderedOverage(tank89.GetGallonsDeliverd()-tank89.GetGallonsOrdered());
+            view.stats.tank.setPremiumTotalGallonsOrderedOverage((int)(tank89.GetGallonsDeliverd()-tank89.GetGallonsOrdered()));
         }else{
             view.stats.tank.setPremiumTotalGallonsOrderedOverage(0);
         }
@@ -107,7 +107,7 @@ public class Controller implements ITimeObserver, ActionListener {
         view.stats.sales.setMigradeSold(Math.round(station.getGasStationTotal87pumped()*100)/100.0);
         view.stats.sales.setRegularSold(Math.round(station.getGasStationTotal85pumped()*100)/100.0);
         if(tank85.GetGallonsOrdered()<tank85.GetGallonsDeliverd()){
-            view.stats.tank.setRegularTotalGallonsOrderedOverage(tank85.GetGallonsDeliverd()-tank85.GetGallonsOrdered());
+            view.stats.tank.setRegularTotalGallonsOrderedOverage((int)(tank85.GetGallonsDeliverd()-tank85.GetGallonsOrdered()));
         }else{
             view.stats.tank.setRegularTotalGallonsOrderedOverage(0);
         }
