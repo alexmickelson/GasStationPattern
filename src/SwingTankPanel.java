@@ -32,10 +32,51 @@ public class SwingTankPanel extends JPanel {
         orderQty.setText("Order Quantity: "+amount);
     }
 
+    public void setVisual(int percent){
+        switch (percent){
+            case 0:
+                name.setText(tankName.toUpperCase());
+                break;
+            case 1:
+                name.setText(tankName.toUpperCase()+"\n\n\n\n\n\n\n\n\nXXXXXXXXXXXX");
+                break;
+            case 2:
+                name.setText(tankName.toUpperCase()+"\n\n\n\n\n\n\n\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 3:
+                name.setText(tankName.toUpperCase()+"\n\n\n\n\n\n\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 4:
+                name.setText(tankName.toUpperCase()+"\n\n\n\n\n\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 5:
+                name.setText(tankName.toUpperCase()+"\n\n\n\n\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 6:
+                name.setText(tankName.toUpperCase()+"\n\n\n\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 7:
+                name.setText(tankName.toUpperCase()+"\n\n\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 8:
+                name.setText(tankName.toUpperCase()+"\n\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 9:
+                name.setText(tankName.toUpperCase()+"\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+            case 10:
+                name.setText(tankName.toUpperCase()+" XXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX\nXXXXXXXXXXXX");
+                break;
+
+        }
+    }
+
+    private String tankName;
     public SwingTankPanel(String tankName){
         super();
-        name = new JTextArea(tankName, 10, 10);
-        name.setFont((new Font("monospaced", Font.PLAIN, 12)));
+        this.tankName = tankName;
+        name = new JTextArea(tankName, 10, 12);
+        name.setFont(new Font("monospaced", Font.PLAIN, 12));
         name.setEditable(false);
 
         currentAmount = new JTextArea("Current Amount: none", 1, 20);
