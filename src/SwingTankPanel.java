@@ -35,6 +35,7 @@ public class SwingTankPanel extends JPanel {
     public SwingTankPanel(String tankName){
         super();
         name = new JTextArea(tankName, 10, 10);
+        name.setFont((new Font("monospaced", Font.PLAIN, 12)));
         name.setEditable(false);
 
         currentAmount = new JTextArea("Current Amount: none", 1, 20);
