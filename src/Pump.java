@@ -105,7 +105,9 @@ public class Pump implements IPump, Runnable {
     }
 
     @Override
-    public int getTotalCustomersServed(){return totalPumpCustomersServed;}
+    public int getTotalCustomersServed(){
+        return totalPumpCustomersServed;
+    }
 
 
 
@@ -165,7 +167,8 @@ public class Pump implements IPump, Runnable {
                 e.printStackTrace();
             }
         }
-
+        state.endTransaction();
+        state.printReceipt();
         if(currReceipt != null){
             return true;
         }
