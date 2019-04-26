@@ -34,7 +34,7 @@ public class TestTruckService {
         itank.RetrieveGasFromTank(500);
         testtruck.CallTruck(itank,500);
         int i = 0;
-        while(itank.getLevel() <= 500){
+        while(itank.getLevel() < 500){
             testtruck.update(i++);
         }
         assertEquals(true, 500<=itank.getLevel());
@@ -54,7 +54,7 @@ public class TestTruckService {
         testtruck.CallTruck(itank,500);
         testtruck.CallTruck(itank2,700);
         int i = 0;
-        while(itank.getLevel() <= 500){
+        while(itank.getLevel() < 500){
             testtruck.update(i++);
         }
         assertEquals(true, 500<=itank.getLevel() && 700 >= itank2.getLevel());

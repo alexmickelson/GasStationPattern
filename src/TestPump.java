@@ -44,7 +44,7 @@ public class TestPump {
 
 
     @Test
-    public void Retrieve87_retrievesHalfFromEachTak(){
+    public void Retrieve87_retrievesHalfFromEachTank(){
         var amt = 70.0;
         // expectations
         context.checking(new Expectations() {{
