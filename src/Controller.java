@@ -103,6 +103,9 @@ public class Controller implements ITimeObserver, ActionListener {
         updatePump(i++, view.pumps.pump5);
         updatePump(i++, view.pumps.pump6);
 
+        //queue
+        view.carQueue.displayQueue(station.GetQueueLength(), customerGenerator.GetMaxStationQueueLength());
+
         //tanks
         view.tanks.regular.setCurrentAmount(Math.round(tank85.getLevel()*100)/100.0);
         view.tanks.regular.setTotalCapacity(Math.round(tank85.getMaxAmount()*100)/100.0);

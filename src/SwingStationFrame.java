@@ -9,6 +9,7 @@ public class SwingStationFrame extends JFrame implements Runnable {
     public SwingTanks tanks;
     public SwingStatsGeneral stats;
     public SwingButtons buttons;
+    public SwingCarQueue carQueue;
     private ActionListener actionListener;
 
     public SwingStationFrame(ActionListener actionListener){
@@ -21,15 +22,22 @@ public class SwingStationFrame extends JFrame implements Runnable {
         tanks = new SwingTanks();
         stats = new SwingStatsGeneral();
         buttons = new SwingButtons(actionListener);
+        carQueue = new SwingCarQueue();
 
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 5, 5);
         c.gridx=0;
         c.gridy=0;
-        c.gridheight=3;
+        c.gridheight=2;
         add(pumps, c);
+
+        c.gridy = 2;
+        c.gridheight = 1;
+        add(carQueue, c);
+
         c.gridheight=1;
+        c.gridy=0;
         c.gridx=1;
         add(tanks, c);
         c.gridy=1;
