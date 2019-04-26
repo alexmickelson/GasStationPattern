@@ -12,6 +12,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
     private int currenttick;
     private ITimeObservable clock;
     public int customerslostduetoqueueoverfill;
+    public int MaxStationQueueLength;
 
     public int getFrequency(){
         return Frequency;
@@ -96,7 +97,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
             for (CustomerArrival thing:customerarrivallist) {
                 if(thing.ArrivalTime == currenttick){
-                    if(station.GetQueueLength() > 4){
+                    if(station.GetQueueLength() > MaxStationQueueLength){
 
                         newlist.remove(thing);
                         customerslostduetoqueueoverfill++;
@@ -141,5 +142,11 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
     public int GetAverageGasRequested(){
         return this.AverageGasDesired;
     }
+    public int GetMaxStationQueueLength(){return this.MaxStationQueueLength;}
+    public void SetMaxStationQueueLength(int Max){
+        this.MaxStationQueueLength = Max;
+    }
+
+
 }
 
