@@ -2,9 +2,10 @@ public interface IState {
     boolean isBusy();
     boolean isPumping();
     void pumpGas();
-    IReceipt endTransaction();
+    void endTransaction();
     void addCustomer(ICustomer customer);
     double getAmountRequested();
+    void printReceipt();
 }
 
 

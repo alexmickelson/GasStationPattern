@@ -25,14 +25,10 @@ public class DriverPump extends Thread {
     @Override
     public void run() {
         var r = p.PumpTransaction(c);
-        if(r != null) {
-            r.printReceipt();
-        }
-        else{
+        if(r == false) {
             total85CustomerLost += 1;
             System.out.println("Station lost a customer: out of gas");
         }
-
 
         System.out.println("\n[Remaining Gas in Tank 85]: " + tank85.getLevel());
         System.out.println("[Remaining Gas in Tank 89]: " + tank89.getLevel());

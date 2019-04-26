@@ -22,8 +22,8 @@ public class StateNoCustomer implements IState {
     }
 
     @Override
-    public IReceipt endTransaction() {
-        return null;
+    public void endTransaction() {
+
     }
 
     @Override
@@ -37,5 +37,10 @@ public class StateNoCustomer implements IState {
     @Override
     public double getAmountRequested() {
         return 0;
+    }
+
+    @Override
+    public void printReceipt() {
+
     }
 }

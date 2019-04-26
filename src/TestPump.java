@@ -91,11 +91,11 @@ public class TestPump {
                 will(returnValue(500.0));
         }});
 
-        var reciept = pump.PumpTransaction(customer);
+        pump.PumpTransaction(customer);
 
-        assertEquals(gasAmt*price , reciept.GetAmountCharged());
-        assertEquals(gasAmt ,reciept.GetGasGiven());
-        assertEquals(CurrencyEnum.CASH ,reciept.GetPaymentType());
+        assertEquals(gasAmt*price , pump.currReceipt.GetAmountCharged());
+        assertEquals(gasAmt ,pump.currReceipt.GetGasGiven());
+        assertEquals(CurrencyEnum.CASH ,pump.currReceipt.GetPaymentType());
     }
 
     @Test
