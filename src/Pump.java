@@ -9,6 +9,7 @@ public class Pump implements IPump, Runnable {
     IState stateEndTransaction;
     IState stateNoCustomer;
     IState statePumpingGas;
+    IState stateReturnReceipt;
     IState state;
 
     //mike was here
@@ -29,6 +30,7 @@ public class Pump implements IPump, Runnable {
     double allowedAmount = 0;
     double currentPumpedAmount = 0;
     double gasIncrementPerSecond = 0.3; //.3 gallons
+    IReceipt currReceipt = null;
 
     //This checks when to end the transaction
     int rateoftime = 1000;
@@ -45,6 +47,7 @@ public class Pump implements IPump, Runnable {
     int total89CustomerLost;
 
     double totalEarnings;
+    int totalPumpCustomersServed;
     public double getAmountRequested(){
         return state.getAmountRequested();
     }
@@ -94,6 +97,7 @@ public class Pump implements IPump, Runnable {
         return total89CustomerLost;
     }
 
+<<<<<<< HEAD
     public double GetPumpSpeed(){
         return gasIncrementPerSecond;
     }
@@ -101,6 +105,10 @@ public class Pump implements IPump, Runnable {
         this.gasIncrementPerSecond = speed;
     }
 
+=======
+    @Override
+    public int getTotalCustomersServed(){return totalPumpCustomersServed;}
+>>>>>>> 787c94f1f051391365e8bc6bdecac6c1e54c4b5d
 
 
 
@@ -109,6 +117,7 @@ public class Pump implements IPump, Runnable {
         stateEndTransaction = new StateEndTransaction(this);
         stateNoCustomer = new StateNoCustomer(this);
         statePumpingGas = new StatePumpingGas(this);
+        stateReturnReceipt = new StateReturnReceipt(this);
 
         state = stateNoCustomer;
 
@@ -147,7 +156,7 @@ public class Pump implements IPump, Runnable {
     }
 
     @Override
-    public IReceipt PumpTransaction(ICustomer customer) {
+    public boolean PumpTransaction(ICustomer customer) {
 
         state.addCustomer(customer); //This will call for a customer if we are in NO_CUSTOMER state
 
@@ -159,9 +168,11 @@ public class Pump implements IPump, Runnable {
                 e.printStackTrace();
             }
         }
-        IReceipt receipt = state.endTransaction();
 
-       return receipt;
+        if(currReceipt != null){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -262,7 +273,7 @@ public class Pump implements IPump, Runnable {
 
     }
 
-    public Receipt endTransaction(){
+    public void endTransaction(){
         currencyHandler.gasGiven(currentPumpedAmount);
         totalEarnings += currencyHandler.amountCharged();
         Receipt receipt = new Receipt();
@@ -270,7 +281,7 @@ public class Pump implements IPump, Runnable {
         receipt.AmountCharged = currencyHandler.amountCharged();
         receipt.PaymentType = currencyHandler.paymentType();
         receipt.GasType = gradeChosen;
-        return receipt;
+        currReceipt = receipt;
     }
 
     //Get our gas using our selected grade
@@ -306,28 +317,28 @@ public class Pump implements IPump, Runnable {
 
     @Override
     public void run() {
-        IReceipt receipt = PumpTransaction(currentCustomer);
-        if (receipt.GetGasGiven() == 0)
-        {
-            switch(receipt.GetGasType()){
-                case GRADE_85:
-                    total85CustomerLost += 1;
-                    log("Customer has been lost: " + receipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                    break;
-                case GRADE_87:
-                    total87CustomerLost += 1;
-                    log("Customer has been lost: " + receipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                    break;
-                case GRADE_89:
-                    total89CustomerLost += 1;
-                    log("Customer has been lost: " + receipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                    break;
-            }
+        var hasReceipt = PumpTransaction(currentCustomer);
+        if (hasReceipt) {
+            if (currReceipt.GetGasGiven() == 0) {
+                switch (currReceipt.GetGasType()) {
+                    case GRADE_85:
+                        total85CustomerLost += 1;
+                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
+                        break;
+                    case GRADE_87:
+                        total87CustomerLost += 1;
+                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
+                        break;
+                    case GRADE_89:
+                        total89CustomerLost += 1;
+                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
+                        break;
+                }
 
-        }
-        else
-        {
-            receipt.printReceipt();
+            } else {
+                totalPumpCustomersServed++;
+                //currReceipt.printReceipt();
+            }
         }
     }
 

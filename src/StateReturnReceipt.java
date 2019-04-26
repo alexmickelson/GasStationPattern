@@ -21,8 +21,15 @@ public class StateReturnReceipt implements IState {
     }
 
     @Override
-    public IReceipt endTransaction() {
-        return null;
+    public void endTransaction() {
+
+    }
+
+    @Override
+    public void printReceipt(){
+        myPump.currReceipt.printReceipt();
+        myPump.currReceipt = null; //set the receipt to null
+        myPump.state = myPump.stateNoCustomer;
     }
 
     @Override

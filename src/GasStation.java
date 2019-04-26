@@ -15,6 +15,8 @@ public class GasStation implements ITimeObserver {
     private double gasStationTotal85pumped;
     private double gasStationTotal87pumped;
     private double gasStationTotal89pumped;
+    private int totalCustomersArrived;
+    private int totalCustomersServed;
 
     public int getTotalCustomersLost85Grade(){
         return totalCustomersLost85Grade;
@@ -36,6 +38,8 @@ public class GasStation implements ITimeObserver {
         return gasStationTotal89pumped;
     }
 
+    public int getTotalCustomersArrived(){ return totalCustomersArrived; }
+    public int getTotalStationCustomersServed(){ return totalCustomersServed; }
     private LinkedList<ICustomer> customerQueue = new LinkedList<>();
     public GasStation( ITruckService truckService,ITank tank85,ITank tank89,ITimeObservable clock){
         //customerQueue.add();
@@ -55,6 +59,7 @@ public class GasStation implements ITimeObserver {
     public void AddCustomer(ICustomer customer){
         synchronized (customerQueue){
             var res = customerQueue.add(customer);
+            totalCustomersArrived++;
         }
     }
 
@@ -126,8 +131,8 @@ public class GasStation implements ITimeObserver {
             totalCustomersLost85Grade += pumps[i].Get85LostCustomers();
             totalCustomersLost87Grade += pumps[i].Get87LostCustomers();
             totalCustomersLost89Grade += pumps[i].Get89LostCustomers();
-
         }
+
         log("Total Lost Customers 85: " + totalCustomersLost85Grade);
         log("Total Lost Customers 87: " + totalCustomersLost87Grade);
         log("Total Lost Customers 89: " + totalCustomersLost89Grade);
@@ -143,9 +148,6 @@ public class GasStation implements ITimeObserver {
             t85 += pumps[i].Get85GasAmountPumped();
             t87 += pumps[i].Get87GasAmountPumped();
             t89 += pumps[i].Get89GasAmountPumped();
-
-
-
         }
 
         gasStationTotal85pumped = t85;
@@ -154,8 +156,17 @@ public class GasStation implements ITimeObserver {
         log("[Tank 85] Total Amount Pumped: " + gasStationTotal85pumped);
         log("[Tank 87] Total Amount Pumped: " + gasStationTotal87pumped);
         log("[Tank 89] Total Amount Pumped: " + gasStationTotal89pumped);
+    }
+    private void getTotalCustomersServed()
+    {
+        var tCustomers = 0;
 
+        for(int i = 0; i < pumps.length; i++) {
+            tCustomers += pumps[i].getTotalCustomersServed();
+        }
 
+        totalCustomersServed = tCustomers;
+        log("Total Customers Served: " + totalCustomersServed);
     }
 }
 

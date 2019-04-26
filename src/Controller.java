@@ -50,9 +50,37 @@ public class Controller implements ITimeObserver, ActionListener {
     private void updatePump(int i, SwingPumpPanel pump){
 
         if(station.pumps[i].IsBusy()) {
-            pump.setCarDisplay("CAR HERE");
+            pump.setCarDisplay( "                  __..-======-------..__\n" +
+                                "            .' .--. '.-----.`. `.-----.-----`.\n" +
+                                "           / .'   | ||      `.` \\\\     \\     \\\\              _\n" +
+                                "         .' /     | ||        \\\\ \\\\_____\\_____\\\\__________[_]\n" +
+                                "        /   `-----' |'---------`\\  .'                       \\\n" +
+                                "       /============|============\\'-------------------.._____|\n" +
+                                "    .-`---.         |-==.        |'.__________________  =====|-._\n" +
+                                "  .'        `.      |            |      .--------.    _` ====|  _ .\n" +
+                                " /     __     \\     |            |   .'           `. [_] `.==| [_] \\\n" +
+                                "[   .`    `.  |     |            | .'     .---.     \\      \\=|     |\n" +
+                                "|  | / .-. '  |_____\\___________/_/     .'---. `.    |     | |     |\n" +
+                                " `-'| | O |'..`------------------'.....'/ .-. \\ |    |       ___.--'\n" +
+                                "LGB  \\ `-' / /   `._.'                 | | O | |'___...----''___.--'\n" +
+                                "      `._.'.'                           \\ `-' / [___...----''_.'\n" +
+                                "                                         `._.'.'");
         }else {
-            pump.setCarDisplay("NO CAR");
+            pump.setCarDisplay("          ____\n" +
+                    "          \\__/         # ##\n" +
+                    "         `(  `^=_ p _###_\n" +
+                    "          c   /  )  |   /\n" +
+                    "   _____- //^---~  _c  3\n" +
+                    " /  ----^\\ /^_\\   / --,-\n" +
+                    "(   |  |  O_| \\\\_/  ,/\n" +
+                    "|   |  | / \\|  `-- /\n" +
+                    "(((G   |-----|\n" +
+                    "      //-----\\\\\n" +
+                    "     //       \\\\\n" +
+                    "   /   |     |  ^|\n" +
+                    "   |   |     |   |\n" +
+                    "   |____|    |____|\n" +
+                    "  /______)   (_____\\");
         }
         pump.setRequestedFuel(station.pumps[i].GetGradeChosen());
         pump.setGallonsRequested(Math.round(station.pumps[i].getAmountRequested()*100)/100.0);
@@ -116,8 +144,8 @@ public class Controller implements ITimeObserver, ActionListener {
         }
 
         //cars
-        //view.stats.cars.setArrived();
-        //view.stats.cars.setServed();
+        view.stats.cars.setArrived(station.getTotalCustomersArrived());
+        view.stats.cars.setServed(station.getTotalStationCustomersServed());
         view.stats.cars.setLostNoPremium(station.getTotalCustomersLost89Grade());
         view.stats.cars.setLostNoMedium(station.getTotalCustomersLost87Grade());
         view.stats.cars.setLostNoRegular(station.getTotalCustomersLost85Grade());
