@@ -71,7 +71,6 @@ public class GasStation implements ITimeObserver {
 
     public int GetQueueLength(){
         synchronized (customerQueue){
-            log("Customer Queue Size: "+ customerQueue.size());
             return customerQueue.size();
         }
     }
