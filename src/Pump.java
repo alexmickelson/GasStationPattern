@@ -97,7 +97,6 @@ public class Pump implements IPump, Runnable {
         return total89CustomerLost;
     }
 
-<<<<<<< HEAD
     public double GetPumpSpeed(){
         return gasIncrementPerSecond;
     }
@@ -105,10 +104,8 @@ public class Pump implements IPump, Runnable {
         this.gasIncrementPerSecond = speed;
     }
 
-=======
     @Override
     public int getTotalCustomersServed(){return totalPumpCustomersServed;}
->>>>>>> 787c94f1f051391365e8bc6bdecac6c1e54c4b5d
 
 
 
