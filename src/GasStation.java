@@ -8,7 +8,13 @@ public class GasStation implements ITimeObserver {
     private ITruckService truckService;
     private ITank tank89;
     private ITank tank85;
-    public double minLevel;
+    private double minLevel;
+    public double getMinTankLevel(){
+        return minLevel;
+    }
+    public void setMinTankLevel(double level){
+        minLevel = level;
+    }
     private int totalCustomersLost85Grade;
     private int totalCustomersLost87Grade;
     private int totalCustomersLost89Grade;
@@ -75,8 +81,6 @@ public class GasStation implements ITimeObserver {
         //check to see if we need to schedule a truck for tank 89
         if(tank89.getLevel() <= minLevel)
         {
-
-
             truckService.CallTruck(tank89,(tank89.getMaxAmount()-tank89.getLevel()));
             //here we would lower the amount of money in the gas station by the number of dollars we just ordered
         }
@@ -124,14 +128,17 @@ public class GasStation implements ITimeObserver {
     }
     private void getLostTotals()
     {
-        totalCustomersLost85Grade = 0;
-        totalCustomersLost87Grade = 0;
-        totalCustomersLost89Grade = 0;
+        int temp85=0;
+        int temp87=0;
+        int temp89=0;
         for(int i = 0; i < pumps.length; i++) {
-            totalCustomersLost85Grade += pumps[i].Get85LostCustomers();
-            totalCustomersLost87Grade += pumps[i].Get87LostCustomers();
-            totalCustomersLost89Grade += pumps[i].Get89LostCustomers();
+            temp85 += pumps[i].Get85LostCustomers();
+            temp87 += pumps[i].Get87LostCustomers();
+            temp89 += pumps[i].Get89LostCustomers();
         }
+        totalCustomersLost85Grade = temp85;
+        totalCustomersLost87Grade = temp87;
+        totalCustomersLost89Grade = temp89;
 
         log("Total Lost Customers 85: " + totalCustomersLost85Grade);
         log("Total Lost Customers 87: " + totalCustomersLost87Grade);

@@ -273,17 +273,6 @@ public class Pump implements IPump, Runnable {
 
     }
 
-    public void endTransaction(){
-        currencyHandler.gasGiven(currentPumpedAmount);
-        totalEarnings += currencyHandler.amountCharged();
-        Receipt receipt = new Receipt();
-        receipt.GasGiven = currentPumpedAmount;
-        receipt.AmountCharged = currencyHandler.amountCharged();
-        receipt.PaymentType = currencyHandler.paymentType();
-        receipt.GasType = gradeChosen;
-        currReceipt = receipt;
-    }
-
     //Get our gas using our selected grade
     public double RequestGas(double amt)
     {

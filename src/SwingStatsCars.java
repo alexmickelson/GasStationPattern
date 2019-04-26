@@ -7,39 +7,61 @@ public class SwingStatsCars extends JPanel {
     private JTextArea noP;
     private JTextArea noM;
     private JTextArea noR;
+    private JTextArea lostPumpsfull;
     private JTextArea totalLost;
 
     public void setArrived(int amt){
         arrived.setText(amt + "");
+        setTotalLost();
     }
     public void setServed(int amt){
         served.setText(amt+"");
+        setTotalLost();
     }
     public void setLostNoPremium(int amt){
         noP.setText(amt+"");
+        setTotalLost();
     }
     public void setLostNoMedium(int amt){
         noM.setText(amt+"");
+        setTotalLost();
     }
     public void setLostNoRegular(int amt){
         noR.setText(amt+"");
+        setTotalLost();
     }
-    public void setTotalLost(int amt){
-        totalLost.setText(amt+"");
+    public void setlostPumpsfull(int amt){
+        lostPumpsfull.setText(amt+"");
+        setTotalLost();
+    }
+    public void setTotalLost(){
+        int total = 0;
+        try {
+            total += Integer.parseInt(noP.getText());
+            total += Integer.parseInt(noM.getText());
+            total += Integer.parseInt(noR.getText());
+            total += Integer.parseInt(lostPumpsfull.getText());
+            totalLost.setText(total + "");
+        }catch (NumberFormatException e){ // if any arent numbers set total lost to none
+            totalLost.setText("none");
+        }
     }
 
     public SwingStatsCars(){
-        arrived = new JTextArea("none");
+        int col = 4;
+        arrived = new JTextArea("none", 1, col);
         arrived.setEditable(false);
-        served = new JTextArea("none");
+        served = new JTextArea("none", 1, col);
         served.setEditable(false);
-        noP = new JTextArea("none");
+        noP = new JTextArea("none", 1, col);
         noP.setEditable(false);
-        noM = new JTextArea("none");
+        noM = new JTextArea("none", 1, col);
         noM.setEditable(false);
-        noR = new JTextArea("none");
+        noR = new JTextArea("none", 1, col);
         noR.setEditable(false);
-        totalLost = new JTextArea("none");
+        lostPumpsfull = new JTextArea("none", 1, col);
+        lostPumpsfull.setEditable(false);
+        totalLost = new JTextArea("none", 1, col);
         totalLost.setEditable(false);
 
         setLayout(new GridBagLayout());
@@ -73,9 +95,14 @@ public class SwingStatsCars extends JPanel {
         c.gridy=4;
         add(l,c);
 
-        l = new JLabel("Total Lost");
+        l = new JLabel("Lost - Pumps Full");
         l.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         c.gridy=5;
+        add(l,c);
+
+        l = new JLabel("Total Lost");
+        l.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+        c.gridy=6;
         add(l,c);
 
         c.gridx=1;
@@ -90,6 +117,8 @@ public class SwingStatsCars extends JPanel {
         c.gridy=4;
         add(noR, c);
         c.gridy=5;
+        add(lostPumpsfull, c);
+        c.gridy=6;
         add(totalLost, c);
     }
 }

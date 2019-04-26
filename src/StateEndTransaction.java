@@ -23,7 +23,14 @@ public class StateEndTransaction implements IState {
 
     @Override
     public void endTransaction() {
-        myPump.endTransaction();
+        myPump.currencyHandler.gasGiven(myPump.currentPumpedAmount);
+        myPump.totalEarnings += myPump.currencyHandler.amountCharged();
+        Receipt receipt = new Receipt();
+        receipt.GasGiven = myPump.currentPumpedAmount;
+        receipt.AmountCharged = myPump.currencyHandler.amountCharged();
+        receipt.PaymentType = myPump.currencyHandler.paymentType();
+        receipt.GasType = myPump.gradeChosen;
+        myPump.currReceipt = receipt;
         myPump.state = myPump.stateReturnReceipt;
     }
 

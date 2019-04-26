@@ -20,7 +20,7 @@ public class Controller implements ITimeObserver, ActionListener {
                       //SwingStationFrame view){
         this.station = station;
         this.clock = clock;
-        clock.ChangeSpeedOfProgram(100);
+        clock.setSpeedOfProgram(100);
         this.tank85 = tank85;
         this.tank89 = tank89;
         this.truckService = truckService;
@@ -44,6 +44,8 @@ public class Controller implements ITimeObserver, ActionListener {
         this.view.buttons.pumpingSpeed.setStat(station.pumps[0].GetPumpSpeed()+"G/S");
         this.view.buttons.orderSpeed.setStat(this.truckService.GetMinimumWaitTime()+25+"S");
         this.view.buttons.avgGasReq.setStat((this.customerGenerator.GetAverageGasRequested()+10)+"G");
+        this.view.buttons.tankReorderPoint.setStat(Math.round(station.getMinTankLevel()*100)/100.0+"G");
+        this.view.buttons.simulationSpeed.setStat(this.clock.getSpeedOfProgram() +"ms");
         clock.subscribe(this);
     }
 
@@ -105,14 +107,14 @@ public class Controller implements ITimeObserver, ActionListener {
         view.tanks.regular.setCurrentAmount(Math.round(tank85.getLevel()*100)/100.0);
         view.tanks.regular.setTotalCapacity(Math.round(tank85.getMaxAmount()*100)/100.0);
         view.tanks.regular.setVisual((int)Math.round(tank85.getLevel()*10/tank85.getMaxAmount()));
-        view.tanks.regular.setReorderPoint(Math.round(station.minLevel*100)/100.0);
+        view.tanks.regular.setReorderPoint(Math.round(station.getMinTankLevel()*100)/100.0);
         view.tanks.regular.setOrderPlaced(tank85.IsOrderScheduld());
         view.tanks.regular.setOrderQty(Math.round(tank85.GetCurrentOrderAmount()*100)/100);
 
         view.tanks.premium.setCurrentAmount(Math.round(tank89.getLevel()*100)/100.0);
         view.tanks.premium.setTotalCapacity(Math.round(tank89.getMaxAmount()*100)/100.0);
         view.tanks.premium.setVisual((int)Math.round(tank89.getLevel()*10/tank89.getMaxAmount()));
-        view.tanks.premium.setReorderPoint(Math.round(station.minLevel*100)/100.0);
+        view.tanks.premium.setReorderPoint(Math.round(station.getMinTankLevel()*100)/100.0);
         view.tanks.premium.setOrderPlaced(tank89.IsOrderScheduld());
         view.tanks.premium.setOrderQty(Math.round(tank89.GetCurrentOrderAmount()*100)/100);
 
@@ -149,7 +151,7 @@ public class Controller implements ITimeObserver, ActionListener {
         view.stats.cars.setLostNoPremium(station.getTotalCustomersLost89Grade());
         view.stats.cars.setLostNoMedium(station.getTotalCustomersLost87Grade());
         view.stats.cars.setLostNoRegular(station.getTotalCustomersLost85Grade());
-        view.stats.cars.setTotalLost(customerGenerator.customerslostduetoqueueoverfill); //getter
+        view.stats.cars.setlostPumpsfull(customerGenerator.customerslostduetoqueueoverfill); //getter
     }
 
     @Override
@@ -182,9 +184,6 @@ public class Controller implements ITimeObserver, ActionListener {
             view.buttons.carArrivalSpeed.setStat(customerGenerator.getFrequency() + "");
 
         } else if (clicked == view.buttons.pumpingSpeed.getUp()){
-            if(station.pumps[1].GetPumpSpeed()-.1 < 0){
-                return;
-            }
             for(var pump : station.pumps){
                 pump.SetPumpSpeed(Math.round((pump.GetPumpSpeed()+.1)*100)/100.0);
             }
@@ -212,6 +211,20 @@ public class Controller implements ITimeObserver, ActionListener {
                 clock.pause();
                 view.buttons.setPlayPause("  Play  ");
             }
+        } else if (clicked == view.buttons.tankReorderPoint.getUp()) {
+            station.setMinTankLevel(station.getMinTankLevel()+5);
+            view.buttons.tankReorderPoint.setStat(Math.round(station.getMinTankLevel()*100)/100.0+"g");
+
+        } else if (clicked == view.buttons.tankReorderPoint.getDown()) {
+            station.setMinTankLevel(station.getMinTankLevel()-5<0 ? 0 : station.getMinTankLevel()-5);
+            view.buttons.tankReorderPoint.setStat(Math.round(station.getMinTankLevel()*100)/100.0+"g");
+
+        } else if (clicked==view.buttons.simulationSpeed.getUp()){
+            clock.setSpeedOfProgram(clock.getSpeedOfProgram()+10);
+            this.view.buttons.simulationSpeed.setStat(this.clock.getSpeedOfProgram() +"ms");
+        } else if (clicked==view.buttons.simulationSpeed.getDown()){
+            clock.setSpeedOfProgram(clock.getSpeedOfProgram()-10 < 0 ? 0 : clock.getSpeedOfProgram()-10);
+            this.view.buttons.simulationSpeed.setStat(this.clock.getSpeedOfProgram() +"ms");
         }
     }
 }

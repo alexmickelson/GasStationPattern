@@ -91,8 +91,11 @@ public class TimeService extends Thread implements ITimeObservable{
         return isPaused;
     }
 
-    public void ChangeSpeedOfProgram(int speed){
+    public void setSpeedOfProgram(int speed){
         milliSecondDelay = speed;
         valueUpdated();
+    }
+    public int getSpeedOfProgram(){
+        return milliSecondDelay;
     }
 }
