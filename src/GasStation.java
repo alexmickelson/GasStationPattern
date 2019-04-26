@@ -115,6 +115,7 @@ public class GasStation implements ITimeObserver {
         }
         getLostTotals();
         getPumpedTotals();
+        getTotalCustomersServed();
     }
 
     private void log(String s){

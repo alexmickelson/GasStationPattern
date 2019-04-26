@@ -307,27 +307,7 @@ public class Pump implements IPump, Runnable {
     @Override
     public void run() {
         var hasReceipt = PumpTransaction(currentCustomer);
-        if (!hasReceipt) {
-            if (currReceipt.GetGasGiven() == 0) {
-                switch (currReceipt.GetGasType()) {
-                    case GRADE_85:
-                        total85CustomerLost += 1;
-                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                        break;
-                    case GRADE_87:
-                        total87CustomerLost += 1;
-                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                        break;
-                    case GRADE_89:
-                        total89CustomerLost += 1;
-                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                        break;
-                }
-
-            } else{
-                //currReceipt.printReceipt();
-            }
-        }
+        log("We had receipt: " + hasReceipt);
     }
 
     public void changespeed(int time) {
