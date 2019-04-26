@@ -307,7 +307,7 @@ public class Pump implements IPump, Runnable {
     @Override
     public void run() {
         var hasReceipt = PumpTransaction(currentCustomer);
-        if (hasReceipt) {
+        if (!hasReceipt) {
             if (currReceipt.GetGasGiven() == 0) {
                 switch (currReceipt.GetGasType()) {
                     case GRADE_85:
@@ -324,8 +324,7 @@ public class Pump implements IPump, Runnable {
                         break;
                 }
 
-            } else {
-                totalPumpCustomersServed++;
+            } else{
                 //currReceipt.printReceipt();
             }
         }

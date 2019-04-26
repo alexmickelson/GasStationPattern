@@ -28,6 +28,10 @@ public class StateReturnReceipt implements IState {
     @Override
     public void printReceipt(){
         myPump.currReceipt.printReceipt();
+        if(myPump.currReceipt.GetGasGiven() > 0)
+        {
+            myPump.totalPumpCustomersServed++;
+        }
         myPump.currReceipt = null; //set the receipt to null
         myPump.state = myPump.stateNoCustomer;
     }
