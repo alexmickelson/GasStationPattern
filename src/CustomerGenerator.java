@@ -121,17 +121,16 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
     @Override
     public void run() {
+
         while(true){
+            try {
+                Thread.sleep(speed*Frequency);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if(!clock.isPaused()){
                 GenerateCustomer();
-
-                try {
-                    Thread.sleep(speed*Frequency);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
             }
         }
     }
