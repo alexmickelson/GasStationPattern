@@ -176,6 +176,14 @@ public class Controller implements ITimeObserver, ActionListener {
 
             customerGenerator.SetAverageGasRequested((customerGenerator.GetAverageGasRequested()-1)<=0?0:customerGenerator.GetAverageGasRequested()-1);
             this.view.buttons.avgGasReq.setStat((this.customerGenerator.GetAverageGasRequested()+10)+"G");
+        } else if(clicked == view.buttons.playPause){
+            if(clock.isPaused()){
+                clock.start();
+                view.buttons.setPlayPause("Pause");
+            } else {
+                clock.pause();
+                view.buttons.setPlayPause("  Play  ");
+            }
         }
     }
 }

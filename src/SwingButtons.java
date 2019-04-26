@@ -8,9 +8,17 @@ public class SwingButtons extends JPanel {
     public SwingButton carArrivalSpeed;
     public SwingButton pumpingSpeed;
     public SwingButton avgGasReq;
+    public JButton playPause;
+
+    public void setPlayPause(String s){
+        playPause.setText(s);
+    }
 
     public SwingButtons(ActionListener actionListener){
         super();
+        playPause = new JButton("Pause");
+        playPause.addActionListener(actionListener);
+
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
         setBorder(BorderFactory.createRaisedBevelBorder());
@@ -21,6 +29,7 @@ public class SwingButtons extends JPanel {
         pumpingSpeed = new SwingButton("Speed of Pumping    ", actionListener);
         avgGasReq=new SwingButton("Average Gas Request (gal)    ", actionListener);
 
+        c.ipadx=5;
         c.gridx=0;
         c.gridy=0;
         c.anchor=GridBagConstraints.LINE_END;
@@ -35,5 +44,10 @@ public class SwingButtons extends JPanel {
 
         c.gridy=3;
         add(avgGasReq, c);
+
+        c.gridx=1;
+        c.gridy=0;
+        c.insets=new Insets(2, 10, 2, 10);
+        add(playPause, c);
     }
 }
