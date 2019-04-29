@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
 
 public class Controller implements ITimeObserver, ActionListener {
     public GasStation station;
@@ -47,6 +46,7 @@ public class Controller implements ITimeObserver, ActionListener {
         this.view.buttons.avgGasReq.setStat((this.customerGenerator.GetAverageGasRequested()+10)+"G");
         this.view.buttons.tankReorderPoint.setStat(Math.round(station.getMinTankLevel()*100)/100.0+"G");
         this.view.buttons.simulationSpeed.setStat(this.clock.getSpeedOfProgram() +"ms");
+        this.view.buttons.queueLength.setStat(this.customerGenerator.GetMaxStationQueueLength()+"");
         clock.subscribe(this);
     }
 
@@ -229,6 +229,12 @@ public class Controller implements ITimeObserver, ActionListener {
         } else if (clicked==view.buttons.simulationSpeed.getDown()){
             clock.setSpeedOfProgram(clock.getSpeedOfProgram()-10 < 0 ? 0 : clock.getSpeedOfProgram()-10);
             this.view.buttons.simulationSpeed.setStat(this.clock.getSpeedOfProgram() +"ms");
+        }else if (clicked==view.buttons.queueLength.getUp()){
+            customerGenerator.SetMaxStationQueueLength(customerGenerator.GetMaxStationQueueLength()+1>20?20:customerGenerator.GetMaxStationQueueLength()+1);
+            this.view.buttons.queueLength.setStat(this.customerGenerator.GetMaxStationQueueLength()+"");
+        }else if (clicked==view.buttons.queueLength.getDown()){
+            customerGenerator.SetMaxStationQueueLength(customerGenerator.GetMaxStationQueueLength()-1<0?0:customerGenerator.GetMaxStationQueueLength()-1);
+            this.view.buttons.queueLength.setStat(this.customerGenerator.GetMaxStationQueueLength()+"");
         }
     }
 }

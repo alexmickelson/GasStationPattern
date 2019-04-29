@@ -7,7 +7,7 @@ public class SwingCarQueue extends JPanel {
     private Vector<JTextArea> spots;
 
     public void displayQueue(int size, int maxsize ){
-        if (size > 19){
+        if (size > 20){
             return;
         }
         for (int i=0; i < maxsize; i++){
@@ -32,11 +32,22 @@ public class SwingCarQueue extends JPanel {
         spots = new Vector<JTextArea>();
 
 
-        int rows = 10;
-        int col = 20;
-        int fontsize = 5;
+        int rows = 5;
+        int col = 15;
+        int fontsize = 7;
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
+
+        var label = new JLabel("Car Queue");
+        c.gridx=0;
+        c.gridy=0;
+        c.gridwidth=10;
+        c.insets=new Insets(10, 10, 10, 10);
+        add(label, c);
+
+        c.insets=new Insets(0, 0, 0, 0);
+        c.gridwidth=1;
+
         var x = 0;
         var y = 0;
 
@@ -47,7 +58,7 @@ public class SwingCarQueue extends JPanel {
             spots.add(spot);
 
             c.gridx = x++%10;
-            c.gridy=y++/10;
+            c.gridy=(y++/10)+1;
             add(spot, c);
         }
 
