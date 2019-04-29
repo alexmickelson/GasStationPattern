@@ -27,6 +27,7 @@ public class Controller implements ITimeObserver, ActionListener {
 
 
         customerGenerator = new CustomerGenerator(station,clock);
+        customerGenerator.SetMaxStationQueueLength(4);
         Thread c = new Thread(customerGenerator);
         c.start();
         //clock.start();

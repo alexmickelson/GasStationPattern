@@ -11,7 +11,7 @@ public class SwingCarQueue extends JPanel {
             return;
         }
         for (int i=0; i < maxsize; i++){
-            spots.get(i).setBorder(BorderFactory.createLineBorder(Color.black, 1));
+            spots.get(i).setBorder(BorderFactory.createRaisedBevelBorder());
         }
         for (int i = maxsize; i < spots.size(); i++){
             spots.get(i).setBorder(BorderFactory.createEmptyBorder());

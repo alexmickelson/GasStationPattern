@@ -97,7 +97,7 @@ public class CustomerGenerator implements ITimeObserver, Runnable {
 
             for (CustomerArrival thing:customerarrivallist) {
                 if(thing.ArrivalTime == currenttick){
-                    if(station.GetQueueLength() > MaxStationQueueLength){
+                    if(station.GetQueueLength() >= MaxStationQueueLength){
 
                         newlist.remove(thing);
                         customerslostduetoqueueoverfill++;
