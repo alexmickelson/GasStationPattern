@@ -138,12 +138,24 @@ public class Pump implements IPump, Runnable {
     @Override
     public double Retrieve87Grade(double amount) {
         //TODO: CHANGE IN THE FUTURE
-        double temp=0;
+        double temp1=0;
+        double temp2=0;
 
-        temp += tank85.RetrieveGasFromTank(amount/2);
-        temp += tank89.RetrieveGasFromTank(amount/2);
+        temp1 += tank85.RetrieveGasFromTank(amount/2);
+        if(temp1 == 0)
+        {
+            return temp1;
+        }
+        temp2 += tank89.RetrieveGasFromTank(amount/2);
+        if(temp2 == 0)
+        {
+            //make sure we return gas to 85
+            tank85.GiveGasToTank(temp1);
+            return temp2;
+        }
 
-        return temp;
+
+        return temp1+temp2;
     }
     @Override
     public double Retrieve89Grade(double amount) {
@@ -307,28 +319,7 @@ public class Pump implements IPump, Runnable {
     @Override
     public void run() {
         var hasReceipt = PumpTransaction(currentCustomer);
-        if (hasReceipt) {
-            if (currReceipt.GetGasGiven() == 0) {
-                switch (currReceipt.GetGasType()) {
-                    case GRADE_85:
-                        total85CustomerLost += 1;
-                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                        break;
-                    case GRADE_87:
-                        total87CustomerLost += 1;
-                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                        break;
-                    case GRADE_89:
-                        total89CustomerLost += 1;
-                        log("Customer has been lost: " + currReceipt.GetGasType().toString() + " Amount of customers lost: " + total85CustomerLost);
-                        break;
-                }
-
-            } else {
-                totalPumpCustomersServed++;
-                //currReceipt.printReceipt();
-            }
-        }
+        log("We had receipt: " + hasReceipt);
     }
 
     public void changespeed(int time) {
